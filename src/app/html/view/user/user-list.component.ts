@@ -16,7 +16,8 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private userService: UserService) {}
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.getUsers();
@@ -25,10 +26,6 @@ export class UserListComponent implements OnInit {
   getUsers(): void {
     this.userService.getUsers().then(users => this.users = users);    
   }
-  
-  // onSelect(user: User): void {
-  //   this.selectedUser = user;
-  // }
 
   viewDetails(user: User): void {
     this.selectedUser = user;

@@ -4,10 +4,10 @@ import { Component } from '@angular/core';
   selector: 'header',
   templateUrl: './header.component.html'
 })
-export class HeaderComponent {}
+export class HeaderComponent { }
 
 @Component({
   selector: 'footer',
   templateUrl: './footer.component.html'
 })
-export class FooterComponent {}
+export class FooterComponent { }

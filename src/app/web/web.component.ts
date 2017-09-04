@@ -1,10 +1,21 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { MESSAGES } from '../app.component';
+
 @Component({
   selector: 'user-list',
   templateUrl: './web.component.html'
 })
 export class WebComponent {
-  title = 'WEB';
+  messages = MESSAGES.Web;
+  isLogged = false;
+
+  logout(): void {
+    this.isLogged = false;
+  }
+
+  login(): void {
+    this.isLogged = true;
+  }
 }

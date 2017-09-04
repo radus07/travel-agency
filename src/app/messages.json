@@ -1,0 +1,12 @@
+{
+  "Web": {
+    "web": "Web Page",
+    "notFound": "404 Page Not Found!"
+  },
+  "Agency": {
+    "agencyHome": "Agency Page"
+  },
+  "Admin": {
+    "adminHome": "Admin Page"
+  }
+}

@@ -7,10 +7,7 @@
     {
       "root": "src",
       "outDir": "dist",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": [],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -21,7 +18,8 @@
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/font-awesome/css/font-awesome.css",
-        "./inspinia.css"
+        "./app/assets/css/inspinia.css",
+        "./app/assets/css/style.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",

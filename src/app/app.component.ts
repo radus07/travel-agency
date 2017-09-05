@@ -7,7 +7,7 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
-import * as data from './messages.json';
+import * as data from './assets/message/message.json';
 export const MESSAGES = (<any>data);
 
 @Component({

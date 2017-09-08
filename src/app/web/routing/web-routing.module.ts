@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { WebComponent } from '../web.component';
-import { NotFoundComponent } from '../../assets/html/view/404/404.component'; 
+import { WebComponent } from '../assets/html/view/home/web.component';
+import { NotFoundComponent } from '../assets/html/view/error/404/404.component'; 
 
 import { MESSAGES } from '../../app.component';
 

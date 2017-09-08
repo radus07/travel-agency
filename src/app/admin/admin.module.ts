@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AdminComponent } from './html/view/home/admin.component';
-import { HeaderComponent, FooterComponent } from './html/fragment/fragments.component';
+import { AdminComponent } from './assets/html/view/home/admin.component';
+import { HeaderComponent, FooterComponent } from './assets/html/fragment/fragments.component';
 
 import { AdminRoutingModule } from './routing/admin-routing.module';
 

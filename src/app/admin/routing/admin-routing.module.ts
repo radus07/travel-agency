@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AdminComponent } from '../html/view/home/admin.component';
+import { AdminComponent } from '../assets/html/view/home/admin.component';
 
 import { MESSAGES } from '../../app.component';
 

@@ -40,4 +40,14 @@ export class UserService {
   getUser(): User {
     return (this.isLogged) ? JSON.parse(localStorage.getItem('user')) : null;
   }
+
+  findAll(): User[] {
+    return this.users;
+  }
+
+  saveUser(user: User): void {
+    /**
+     * Create saving algorithm
+     */
+  }
 }

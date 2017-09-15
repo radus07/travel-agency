@@ -1,77 +1,79 @@
 <div id="page-wrapper" class="black-bg">
   <div class="wrapper wrapper-content">
-    <div class="col-lg-12">
-      <div class="ibox float-e-margins">
-        <div class="ibox-title">
-          <h5>{{messages.web}}</h5>
-        </div>
-        <div class="ibox-content">
-          <div *ngIf="isLogged; then loggedTemplate else loginTemplate"></div>
-          <ng-template #loggedTemplate>
-            <div class="row">
-              <div class="col-sm-4"></div>
-              <div class="col-sm-4" style="text-align: center;">
-                <h3>Welcome <b>{{user.username}}</b></h3>
-                <a class="logout" (click)="logout()"><i class="fa fa-sign-out" style="font-size: 48px;"></i></a>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>{{messages.web}}</h5>
+          </div>
+          <div class="ibox-content">
+            <div *ngIf="isLogged; then loggedTemplate else loginTemplate"></div>
+            <ng-template #loggedTemplate>
+              <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4" style="text-align: center;">
+                  <h3>Welcome <b>{{user.username}}</b></h3>
+                  <a class="logout" (click)="logout()"><i class="fa fa-sign-out" style="font-size: 48px;"></i></a>
+                </div>
               </div>
-            </div>
-            <div class="row text-center" style="margin: 100px 0;">
-              <a routerLink="/agency">
-                <div class="col-sm-4">
-                  <i class="fa fa-suitcase" style="font-size: 55px;"></i>
-                </div>
-              </a>
-              <div class="col-sm-4"></div>
-              <a routerLink="/admin">
-                <div class="col-sm-4">
-                  <i class="fa fa-cogs" style="font-size: 55px;"></i>
-                </div>
-              </a>
-            </div>
-          </ng-template>
-          <ng-template #loginTemplate> 
-            <div class="row text-center">
-              <div class="col-sm-4"></div>
-              <div class="col-sm-4">
-                <form novalidate (ngSubmit)="login(user)" #loginForm="ngForm" class="form-horizontal">
-                  <div class="error text-danger" *ngIf="hasErrors">
-                    <p>Invalid username and password.</p>
+              <div class="row text-center" style="margin: 100px 0;">
+                <a routerLink="/agency">
+                  <div class="col-sm-4">
+                    <i class="fa fa-suitcase" style="font-size: 55px;"></i>
                   </div>
-                  <div class="form-group" [ngClass]="{
-                    'has-error': username.invalid && (username.dirty || username.touched) || hasErrors,
-                    'has-success': !username.invalid
-                  }"> 
-                    <label class="control-label col-sm-4" for="username">Username:</label>
-                    <div class="col-sm-8"> 
-                      <input type="text" id="username" class="form-control" name="username" [(ngModel)]="user.username" minlength="4" required #username="ngModel" autocomplete="off" autofocus>
-                      <div class="error text-danger" *ngIf="username.errors && (username.dirty || username.touched)">
-                        <p *ngIf="username.errors.required">Username is required</p>
-                        <p *ngIf="username.errors.minlength">Username must be at least 4 characters long</p>
+                </a>
+                <div class="col-sm-4"></div>
+                <a routerLink="/admin">
+                  <div class="col-sm-4">
+                    <i class="fa fa-cogs" style="font-size: 55px;"></i>
+                  </div>
+                </a>
+              </div>
+            </ng-template>
+            <ng-template #loginTemplate> 
+              <div class="row text-center">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                  <form novalidate (ngSubmit)="login(user)" #loginForm="ngForm" class="form-horizontal">
+                    <div class="error text-danger" *ngIf="hasErrors">
+                      <p>Invalid username and password.</p>
+                    </div>
+                    <div class="form-group" [ngClass]="{
+                      'has-error': username.invalid && (username.dirty || username.touched) || hasErrors,
+                      'has-success': !username.invalid
+                    }"> 
+                      <label class="control-label col-sm-4" for="username">Username:</label>
+                      <div class="col-sm-8"> 
+                        <input type="text" id="username" class="form-control" name="username" [(ngModel)]="user.username" minlength="4" required #username="ngModel" autocomplete="off" autofocus>
+                        <div class="error text-danger" *ngIf="username.errors && (username.dirty || username.touched)">
+                          <p *ngIf="username.errors.required">Username is required</p>
+                          <p *ngIf="username.errors.minlength">Username must be at least 4 characters long</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group" [ngClass]="{
-                    'has-error': password.invalid && (password.dirty || password.touched) || hasErrors,
-                    'has-success': !password.invalid
-                  }"> 
-                    <label class="control-label col-sm-4" for="pwd">Password:</label>
-                    <div class="col-sm-8"> 
-                      <input type="password" id="pwd" class="form-control" name="password" [(ngModel)]="user.password" required minlength="4" #password="ngModel">
-                      <div class="error text-danger" *ngIf="password.errors && (password.dirty || password.touched)">
-                        <p *ngIf="password.errors.required">Password is required</p>
-                        <p *ngIf="password.errors.minlength">Password must be at least 4 characters long</p>
+                    <div class="form-group" [ngClass]="{
+                      'has-error': password.invalid && (password.dirty || password.touched) || hasErrors,
+                      'has-success': !password.invalid
+                    }"> 
+                      <label class="control-label col-sm-4" for="pwd">Password:</label>
+                      <div class="col-sm-8"> 
+                        <input type="password" id="pwd" class="form-control" name="password" [(ngModel)]="user.password" required minlength="4" #password="ngModel">
+                        <div class="error text-danger" *ngIf="password.errors && (password.dirty || password.touched)">
+                          <p *ngIf="password.errors.required">Password is required</p>
+                          <p *ngIf="password.errors.minlength">Password must be at least 4 characters long</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group"> 
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-primary" [style.pointer-events]="loginForm.invalid ? 'none' : 'auto'" [disabled]="loginForm.invalid">Login</button>
+                    <div class="form-group"> 
+                      <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary" [style.pointer-events]="loginForm.invalid ? 'none' : 'auto'" [disabled]="loginForm.invalid">Login</button>
+                      </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
-            </div>
-          </ng-template>
+            </ng-template>
+          </div>
         </div>
       </div>
     </div>

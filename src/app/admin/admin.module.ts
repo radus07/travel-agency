@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AdminComponent } from './component/admin.component';
 import { HeaderComponent, FooterComponent } from './component/fragment/fragments.component';
 import { HomeComponent } from './component/home/home.component';
+import { UserComponent } from './component/user/user.component';
 
 import { AccessDeniedComponent } from '../common/component/error/401/access-denied.component';
 import { ProtectedDirective } from '../common/directive/protected.directive';
@@ -18,10 +20,11 @@ import { UserService } from '../service/user.service';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
+    UserComponent,
     AccessDeniedComponent,
     ProtectedDirective
   ],
-  imports: [BrowserModule, AdminRoutingModule],
+  imports: [BrowserModule, AdminRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [UserService]
 })
 export class AdminModule { }

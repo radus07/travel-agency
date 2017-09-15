@@ -7,6 +7,9 @@
     "agencyHome": "Agency Page"
   },
   "Admin": {
-    "adminHome": "Admin | Home"
+    "titles": {
+      "homePage": "Admin | Home",
+      "usersPage": "Admin | Users"
+    }
   }
 }

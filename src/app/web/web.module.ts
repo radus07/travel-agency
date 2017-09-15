@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { WebComponent } from './assets/html/view/home/web.component';
-import { NotFoundComponent } from './assets/html/view/error/404/404.component';
+import { WebComponent } from './component/home/web.component';
+import { NotFoundComponent } from '../common/component/error/404/not-found.component';
 
 import { WebRoutingModule } from './routing/web-routing.module';
 
@@ -15,7 +15,7 @@ import { RoleService } from '../service/role.service';
     WebComponent,
     NotFoundComponent,
   ],
-  imports: [BrowserModule, WebRoutingModule, FormsModule],
+  imports: [BrowserModule, WebRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [UserService, RoleService]
 })
 export class WebModule { }

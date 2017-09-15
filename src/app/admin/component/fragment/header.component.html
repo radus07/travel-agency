@@ -10,16 +10,10 @@
     </ul>
     <ul class="nav navbar-top-links navbar-right">
       <li>
-        <span>username</span>
+        <span>{{user.username}}</span>
       </li>
       <li> 
-        <a class="logout" ><i class="fa fa-sign-out"></i> Log out</a> 
-      </li>
-      <li> 
-        <select class="form-control" >
-          <option value="ro">Romana</option>
-          <option value="en">English</option>
-        </select> 
+        <a class="logout" (click)="logout()"><i class="fa fa-sign-out"></i> Log out</a> 
       </li>
     </ul>
   </nav>

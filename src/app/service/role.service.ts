@@ -14,7 +14,7 @@ export class RoleService {
     return ROLES;
   }
 
-  getRoleByName(name: string): Role {
+  findByName(name: string): Role {
     return ROLES.find(role => role.name === name);
   }
 

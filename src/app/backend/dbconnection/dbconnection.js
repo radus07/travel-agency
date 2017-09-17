@@ -1,14 +1,24 @@
-var mysql = require('mysql');
+var Sequelize = require('sequelize');
 
-var conn = mysql.createConnection({
-  host: "localhost",
-  user: "aliabibu",
-  password: "aliabibu",
-  database: "travel_agency"
+var sequelize = new Sequelize('travel_agency', 'aliabibu', 'aliabibu', {
+	host: 'localhost',
+	dialect: 'mysql',
 });
 
-conn.connect(function (err) {
-  if (err) throw err;
-});
+sequelize
+	.authenticate()
+	.then(() => {
+    /**
+     * Connected Successfully
+     */
+  })
+	.catch(err => {
+		console.error('Unable to connect to the database:', err);
+	});
 
-module.exports = conn;
+module.exports = sequelize;
+
+/**
+ * For generate models use: 
+ *  sequelize-auto  -o "./models" -d travel_agency -h localhost -u aliabibu -p 3306 -x aliabibu
+ */

@@ -1,38 +1,20 @@
-var connection = require('../dbconnection/dbconnection');
-var userService = {
+var sequelize = require('../dbconnection/dbconnection');
+var User = sequelize.import('../../models/users.js');
 
+var userService = {
   getAllUsers: function (callback) {
-    var query = "SELECT * FROM users";
-    return connection.query(query, function (err, rows) {
-      return callback(getResponseFromQueryResult(err, rows));
+    User.findAll().then(result => {
+      return callback(result);
     });
   },
   getUserById: function (id, callback) {
-    var query = "SELECT * FROM users WHERE ID = ?";
-    return connection.query(query, [id], function (err, rows) {
-      return callback(getResponseFromQueryResult(err, rows));
-    });
+    User.findAll({
+      where: {
+        ID: id
+      }
+    }).then(result => {
+      return callback(result);
+    })
   }
-
-}
-
-var response = {
-  status: "",
-  data: ""
-}
-
-function getResponseFromQueryResult(err, rows) {
-  if (err) {
-    response = {
-      status: 404,
-      data: [] 
-    };
-  } else {
-    response = {
-      status: 200,
-      data: rows
-    };
-  }
-  return response;
 }
 module.exports = userService;

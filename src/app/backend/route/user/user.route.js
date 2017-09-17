@@ -10,7 +10,6 @@ router.get('/', function (req, res) {
 });
 
 router.get('/:id?', function (req, res) {
-	var id = req.params.id;
 	userService.getUserById(req.params.id, function (result) {
 		res.json(result);
 	});

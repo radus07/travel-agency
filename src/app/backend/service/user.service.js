@@ -1,5 +1,7 @@
 var sequelize = require('../dbconnection/dbconnection');
-var User = sequelize.import('../../models/users.js');
+// var User = sequelize.import('../../models/users.js');
+var models = require('../../models');
+var User = models.users;
 
 var userService = {
   getAllUsers: function (callback) {

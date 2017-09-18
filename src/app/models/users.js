@@ -2,39 +2,39 @@
 
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('users', {
-    ID: {
+    id: {
       type: DataTypes.BIGINT,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    USERNAME: {
-      type: DataTypes.STRING(50),
+    username: {
+      type: DataTypes.STRING(30),
       allowNull: false,
-      defaultValue: '0',
-      unique: true
+      defaultValue: ''
     },
-    IS_ENABLED: {
+    isEnabled: {
       type: DataTypes.INTEGER(1),
       allowNull: false,
       defaultValue: '0'
     },
-    ROLE_ID: {
-      type: DataTypes.BIGINT,
-      allowNull: false,
-      defaultValue: '0',
-      references: {
-        model: 'roles',
-        key: 'ID'
-      }
-    },
     createdAt: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: true
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    roleId: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      references: {
+        model: 'roles',
+        key: 'id'
+      }
     }
   }, {
     tableName: 'users'

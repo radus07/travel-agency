@@ -17,8 +17,3 @@ sequelize
 	});
 
 module.exports = sequelize;
-
-/**
- * For generate models use: 
- *  sequelize-auto  -o "./models" -d travel_agency -h localhost -u aliabibu -p 3306 -x aliabibu
- */

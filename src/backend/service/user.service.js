@@ -20,6 +20,15 @@ var userService = {
       return callback(result);
     })
   },
+  getUserByUsernameAndPassword: (username, password, callback) => {
+    User.findOne({ 
+      where: { username: username, password: password },
+      include: [{ model: Role }],
+      attributes: { exclude: ['roleId'] }
+    }).then(result => {
+      return callback(result);
+    });
+  },
   saveUser: (user, callback) => {
     User.build(user).save().then(result => {
       return callback(result);

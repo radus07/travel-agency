@@ -10,7 +10,6 @@ import { UserService } from '../../../service/user.service';
 
 export class UserComponent implements OnInit {
   user: User = this.userService.getUser();
-  users: User[] = this.userService.findAll();
   selectedUser: User;
 
   constructor(

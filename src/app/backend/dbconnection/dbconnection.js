@@ -5,15 +5,12 @@ var sequelize = new Sequelize('travel_agency', 'aliabibu', 'aliabibu', {
 	dialect: 'mysql',
 });
 
-sequelize
-	.authenticate()
-	.then(() => {
-    /**
-     * Connected Successfully
-     */
-  })
-	.catch(err => {
-		console.error('Unable to connect to the database:', err);
-	});
+sequelize.authenticate().then(() => {
+  /**
+   * Connected Successfully
+   */
+}).catch(err => {
+	console.error('Unable to connect to the database:', err);
+});
 
 module.exports = sequelize;

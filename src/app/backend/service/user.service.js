@@ -1,21 +1,42 @@
 var sequelize = require('../dbconnection/dbconnection');
-var models = require('../model');
+var models = require('../model/tables');
 var User = models.users;
+var Role = models.roles;
 
 var userService = {
-  getAllUsers: function (callback) {
-    User.findAll().then(result => {
+  getAllUsers: (callback) => {
+    User.findAll({
+      include: [{ model: Role }],
+      attributes: { exclude: ['roleId'] }
+    }).then(result => {
       return callback(result);
     });
   },
-  getUserById: function (id, callback) {
-    User.findAll({
-      where: {
-        ID: id
-      }
+  getUserById: (id, callback) => {
+    User.findById(id, {
+      include: [{ model: Role }],
+      attributes: { exclude: ['roleId'] }
     }).then(result => {
       return callback(result);
     })
+  },
+  saveUser: (user, callback) => {
+    User.build(user).save().then(result => {
+      return callback(result);
+    }).catch(error => {
+      return callback(error);
+    });
+  },
+  updateUser: (user, callback) => {
+    User.update(user, { where: { id: user.id } }
+    ).then(result => {
+      return callback(result);
+    });
+  },
+  deleteUser: (id, callback) => {
+    User.destroy({ where: { id: id } }).then(result => {
+      return callback(result);
+    });
   }
 }
 module.exports = userService;

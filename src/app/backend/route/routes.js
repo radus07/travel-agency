@@ -1,3 +1,4 @@
 module.exports = function (app) {
-  app.use('/users', require('./user/user.route'));  
+  require('./user.route')(app);  
+  require('./role.route')(app);  
 }

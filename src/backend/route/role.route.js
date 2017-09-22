@@ -1,33 +1,35 @@
+var express = require('express');
+var router = express.Router();
 var roleService = require('../service/role.service');
 
-module.exports = (app, cors) => {
-	app.get('/roles', cors(), (req, res) => {
-		roleService.getAllRoles((result) => {
-			res.json(result);
-		});
+router.get('/', (req, res) => {
+	roleService.getAllRoles((result) => {
+		res.json(result);
 	});
-	
-	app.get('/roles/:id', cors(), (req, res) => {
-		roleService.getRoleById(req.params.id, (result) => {
-			res.json(result);
-		});
-	});
-	
-	app.put('/roles/save', cors(), (req, res) => {
-		roleService.saveRole(req.body, (result) => {
-      res.json(result);
-    });
-	});
+});
 
-	app.post('/roles/update', cors(), (req, res) => {
-		roleService.updateRole(req.body, (result) => {
-			res.json(result);
-		});
+router.get('/:id', (req, res) => {
+	roleService.getRoleById(req.params.id, (result) => {
+		res.json(result);
 	});
+});
 
-	app.delete('/roles/delete/:id', cors(), (req, res) => {
-		roleService.deleteRole(req.params.id, (result) => {
-			res.json(result);
-		})
+router.put('/save', (req, res) => {
+	roleService.saveRole(req.body, (result) => {
+		res.json(result);
 	});
-}
+});
+
+router.post('/update', (req, res) => {
+	roleService.updateRole(req.body, (result) => {
+		res.json(result);
+	});
+});
+
+router.delete('/delete/:id', (req, res) => {
+	roleService.deleteRole(req.params.id, (result) => {
+		res.json(result);
+	})
+});
+
+module.exports = router;

@@ -7,6 +7,7 @@ import { NotFoundComponent } from '../common/component/error/404/not-found.compo
 
 import { WebRoutingModule } from './routing/web-routing.module';
 
+import { AuthenticationService } from '../service/authentication.service';
 import { UserService } from '../service/user.service';
 import { RoleService } from '../service/role.service';
 
@@ -16,6 +17,6 @@ import { RoleService } from '../service/role.service';
     NotFoundComponent,
   ],
   imports: [BrowserModule, WebRoutingModule, FormsModule, ReactiveFormsModule],
-  providers: [UserService, RoleService]
+  providers: [AuthenticationService, UserService, RoleService]
 })
 export class WebModule { }

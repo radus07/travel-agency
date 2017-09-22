@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 
 import { MESSAGES } from '../../../app.component';
+import { AuthenticationService } from '../../../service/authentication.service';
 import { UserService } from '../../../service/user.service';
 
 @Component({
@@ -18,23 +19,23 @@ import { UserService } from '../../../service/user.service';
 })
 export class WebComponent {
   messages = MESSAGES.Web;
-  user: any = this.userService.getUser();
-  isLogged: boolean = this.userService.isLogged;
+  user: any = {};
+  isLogged: boolean = false
   hasErrors: boolean = false;
   @ViewChild('loginForm') loginForm: any;
 
   logout(): void { }
 
   login(): void { 
-    let user: any;
-    this.userService.checkIfExistsUser(this.user, (result) => {
-      console.log(result);
-    });
+    /**
+     * Get data from login form and send it to server using authService for checking
+     */
   }
 
   constructor(
-    private userService: UserService,
-    private router: Router
+    private authService: AuthenticationService,
+    private router: Router,
+    private userService: UserService
   ) { 
   }
 

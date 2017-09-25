@@ -1,5 +1,9 @@
 {
   "Web": {
+    "titles": {
+      "homePage": "Welcome | Home",
+      "signInPage": "Sign In"
+    },
     "web": "Welcome to Travel Agency",
     "notFound": "404 Page Not Found!"
   },

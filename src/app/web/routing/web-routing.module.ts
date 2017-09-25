@@ -1,14 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { WebComponent } from '../component/home/web.component';
+import { WebComponent } from '../component/web.component';
+import { HomeComponent } from '../component/home/home.component';
+import { SignInComponent} from '../component/sign_in/sign_in.component';
 import { NotFoundComponent } from '../../common/component/error/404/not-found.component'; 
 
 import { MESSAGES } from '../../app.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'web', pathMatch: 'full' },
-  { path: 'web', component: WebComponent, data: {title: MESSAGES.Web.web} },
+  { path: 'web', component: WebComponent, 
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent, data: {title: MESSAGES.Admin.titles.homePage} },
+      { path: 'sign_in', component: SignInComponent, data: {title: MESSAGES.Admin.titles.usersPage} }
+    ] },
   { path: '**', component: NotFoundComponent, data: {title: MESSAGES.Web.notFound} }
 ];
 

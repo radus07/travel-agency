@@ -16,17 +16,17 @@ export class ProtectedDirective implements OnInit {
     private router: Router,
     private el: ElementRef
   ) {
-    if (!userService.isLogged) {
-      this.router.navigateByUrl('web');
-    }
+    // if (!userService.isLogged) {
+    //   this.router.navigateByUrl('web');
+    // }
   }
 
   ngOnInit() {
     let parentNode: HTMLElement = this.el.nativeElement.parentNode;
     if (this.roles !== undefined) {
-      if (!this.hasPermissions(this.userService.getUser(), this.roles.split("|"))) {
-        parentNode.removeChild(this.el.nativeElement);
-      }
+      // if (!this.hasPermissions(this.userService.getUser(), this.roles.split("|"))) {
+      //   parentNode.removeChild(this.el.nativeElement);
+      // }
     }    
   }
 

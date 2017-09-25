@@ -8,7 +8,7 @@ import { User } from '../../../model/user.class';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
-  user: User = this.userService.getUser();
+  // user: User = this.userService.getUser();
 
   constructor(
     private userService: UserService

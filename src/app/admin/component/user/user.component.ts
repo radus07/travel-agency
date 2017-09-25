@@ -9,7 +9,7 @@ import { UserService } from '../../../service/user.service';
 })
 
 export class UserComponent implements OnInit {
-  user: User = this.userService.getUser();
+  // user: User = this.userService.getUser();
   selectedUser: User;
 
   constructor(

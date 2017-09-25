@@ -10,7 +10,7 @@ import { UserService } from '../../../service/user.service';
 })
 export class HomeComponent {
   title = 'ADMIN | Home';
-  user: User = this.userService.getUser();
+  // user: User = this.userService.getUser();
 
   constructor(
     private router: Router,

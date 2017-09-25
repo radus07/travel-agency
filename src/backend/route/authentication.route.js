@@ -5,13 +5,17 @@ var app = require('../server');
 var userService = require('../service/user.service');
 
 router.post('/', (req, res) => {
-  var data = req.body;
-  userService.getUserByUsernameAndPassword(data.username, data.password, (result) => {
+  userService.getUserByUsernameAndPassword(req.body.username, req.body.password, (result) => {
     if (result === null) {
-      res.json({ result: 'Error: User not found.' });
+      res.send({ status: 404 });
     } else {
-      var token = jwt.sign(result.dataValues, 'secretWord');
-      res.json({ result: 'Success', user: result, token: token });
+      var user = result.dataValues;
+      if (user.isEnabled === 0) {
+        res.send({ status: 403, data: user });
+      } else if (user.isEnabled === 1) {
+        var token = jwt.sign(user, 'secretWord');
+        res.send({ status: 200, data: { user: user, token: token } });
+      }
     }
   });
 });

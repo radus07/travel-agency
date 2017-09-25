@@ -14,14 +14,14 @@ import { AuthenticationService } from '../../../service/authentication.service';
 import { UserService } from '../../../service/user.service';
 
 @Component({
-  selector: 'web-section',
-  templateUrl: './web.component.html'
+  selector: 'home-section',
+  templateUrl: './home.component.html'
 })
-export class WebComponent {
+export class HomeComponent {
   messages = MESSAGES.Web;
   user: any = {};
   isLogged: boolean = false
-  hasErrors: boolean = false;
+  hasErrors: string = '';
   @ViewChild('loginForm') loginForm: any;
 
   logout(): void { }
@@ -30,6 +30,9 @@ export class WebComponent {
     /**
      * Get data from login form and send it to server using authService for checking
      */
+    this.authService.checkAuthentication(this.user, (result) => {
+      this.hasErrors = result.status;
+    });
   }
 
   constructor(

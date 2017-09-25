@@ -8,7 +8,7 @@ import { User } from '../../model/user.class';
   templateUrl: './admin.component.html'
 })
 export class AdminComponent {
-  user: User = this.userService.getUser();
+  // user: User = this.userService.getUser();
   
   constructor(
     private userService: UserService

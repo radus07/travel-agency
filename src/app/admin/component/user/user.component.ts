@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { User } from '../../../model/user.class';
-import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'users-section',
@@ -13,7 +12,6 @@ export class UserComponent implements OnInit {
   selectedUser: User;
 
   constructor(
-    private userService: UserService
   ) { 
   }
 

@@ -7,7 +7,47 @@
             <h5>Home Page Web</h5>
           </div>
           <div class="ibox-content">
-            <a [routerLink]="['/web/sign_in']">Sign In</a>
+            <div class="row">
+              <div class="col-sm-6">
+                <h5>Non logged user</h5>
+              </div>
+              <div class="col-sm-6">
+                <h5>Logged user</h5>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-6">
+                <a [routerLink]="['/web/sign_in']">Sign In</a>
+              </div>
+              <div class="col-sm-6">
+                <a (click)="logoutUser()">Sign Out</a>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-6">
+                Information about agency.
+              </div>
+              <div class="col-sm-6">
+                <div *ngIf="userDetails.user.isEnabled === 0">
+                  {{userDetails.user.username}}, your account is disabled. 
+                  Please <b><a [routerLink]="['/web/contact']">contact us</a></b> for more details.
+                </div>
+                <div *ngIf="userDetails.user.isEnabled === 1">
+                  <a [routerLink]="['/agency']">
+                    <div class="col-sm-6">
+                      Agency
+                    </div>
+                  </a>
+                  <a [routerLink]="['/admin']">
+                    <div class="col-sm-6">
+                      Admin
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

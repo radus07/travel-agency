@@ -8,6 +8,10 @@ module.exports = (app) => {
     validateToken(req, res, next, token);
   });
 
+  /**
+   * Add permissions for routes by user role.
+   */
+  
   app.use('/api/users', require('./user.route'));
   app.use('/api/roles', require('./role.route'));
 

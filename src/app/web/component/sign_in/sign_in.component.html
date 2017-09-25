@@ -7,27 +7,37 @@
             <h5>Sign In</h5>
           </div>
           <div class="ibox-content">
-            <form [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm.value)">
-              <div class="form-group" [ngClass]="{
-                'has-error': loginForm.controls['username'].invalid && loginForm.controls['username'].touched,
-                'has-success': loginForm.controls['username'].valid
-              }">
-                <input type="text" class="form-control" placeholder="Username" [formControl]="loginForm.controls['username']">
-                <p *ngIf="loginForm.controls['username'].hasError('required') && loginForm.controls['username'].touched" class="error text-danger">Username is required</p>
-                <p *ngIf="loginForm.controls['username'].hasError('minlength') && loginForm.controls['username'].touched" class="error text-danger">Username must be at least 4 characters long</p>
+            <div class="row">
+              <div class=" col-sm-4">
+                <div *ngIf="authResultStatus === 404" class="text-danger">Invalid username and password.</div>
               </div>
-              <div class="form-group" [ngClass]="{
-                'has-error': loginForm.controls['password'].invalid && loginForm.controls['password'].touched,
-                'has-success': loginForm.controls['password'].valid
-              }">
-                <input class="form-control" type="password" placeholder="Password" [formControl]="loginForm.controls['password']">
-                <p *ngIf="loginForm.controls['password'].hasError('required') && loginForm.controls['password'].touched" class="error text-danger">Password is required</p>
-                <p *ngIf="loginForm.controls['password'].hasError('minlength') && loginForm.controls['password'].touched" class="error text-danger">Password must be at least 4 characters long</p>
+            </div>
+            <div class="row">
+              <div class=" col-sm-4">
+                <form [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm.value)">
+                  <div class="form-group" [ngClass]="{
+                    'has-error': loginForm.controls['username'].invalid && hasErrors,
+                    'has-success': loginForm.controls['username'].valid
+                  }">
+                    <input type="text" class="form-control" placeholder="Username" [formControl]="loginForm.controls['username']">
+                    <p *ngIf="loginForm.controls['username'].hasError('required') && hasErrors" class="error text-danger">Username is required</p>
+                    <p *ngIf="loginForm.controls['username'].hasError('minlength') && hasErrors" class="error text-danger">Username must be at least 4 characters long</p>
+                  </div>
+                  <div class="form-group" [ngClass]="{
+                    'has-error': loginForm.controls['password'].invalid && hasErrors,
+                    'has-success': loginForm.controls['password'].valid
+                  }">
+                    <input class="form-control" type="password" placeholder="Password" [formControl]="loginForm.controls['password']">
+                    <p *ngIf="loginForm.controls['password'].hasError('required') && hasErrors" class="error text-danger">Password is required</p>
+                    <p *ngIf="loginForm.controls['password'].hasError('minlength') && hasErrors" class="error text-danger">Password must be at least 4 characters long</p>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-default">Login</button>
+                  </div>
+                </form>
               </div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-default" [disabled]="!loginForm.valid">Login</button>
-              </div>
-            </form>
+            </div>
+            
           </div>
         </div>
       </div>

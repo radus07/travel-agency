@@ -10,14 +10,18 @@ router.post('/', (req, res) => {
       res.send({ status: 404 });
     } else {
       var user = result.dataValues;
-      if (user.isEnabled === 0) {
-        res.send({ status: 403, data: user });
-      } else if (user.isEnabled === 1) {
-        var token = jwt.sign(user, 'secretWord');
-        res.send({ status: 200, data: { user: user, token: token } });
-      }
+      var token = jwt.sign(createJWT(user), 'secretWord');
+      res.send({ status: 200, data: token });
     }
   });
+
+  function createJWT(user) {
+    return {
+      user_id: user.id,
+      user_isEnabled: user.isEnabled,
+      user_role: user.role.name
+    }
+  }
 });
 
 module.exports = router;

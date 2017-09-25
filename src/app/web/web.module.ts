@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { WebComponent } from './component/web.component';
 import { HomeComponent } from './component/home/home.component';
+import { ContactComponent } from './component/contact/contact.component';
 import { SignInComponent } from './component/sign_in/sign_in.component';
 import { NotFoundComponent } from '../common/component/error/404/not-found.component';
 
@@ -18,7 +19,8 @@ import { RoleService } from '../service/role.service';
     WebComponent,
     NotFoundComponent,
     HomeComponent,
-    SignInComponent
+    SignInComponent,
+    ContactComponent
   ],
   imports: [BrowserModule, WebRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [AuthenticationService, UserService, RoleService]

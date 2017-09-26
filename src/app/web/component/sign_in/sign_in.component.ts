@@ -32,8 +32,7 @@ export class SignInComponent {
     this.authService.checkAuthentication(account, (result) => {
       this.authResultStatus = result.status;
       if (this.authResultStatus !== 404) {
-        let accountrDetails = result.data;
-        this.authService.loginAccount(accountrDetails);
+        this.authService.loginAccount(result.data);
         this.router.navigateByUrl("/web/home");
       }
     });

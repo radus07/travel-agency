@@ -8,9 +8,7 @@ import { ContactComponent } from '../component/contact/contact.component';
 import { NotFoundComponent } from '../../common/component/error/404/not-found.component'; 
 
 import { MESSAGES } from '../../app.component';
-
-import { AuthGuardLoggedInService } from '../../service/auth_guard/auth-guard.loggedIn.service';
-import { AuthGuardLoggedOutService } from '../../service/auth_guard/auth-guard.loggedOut.service';
+import { AuthGuardService } from '../../service/auth_guard/auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'web', pathMatch: 'full' },
@@ -18,7 +16,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, data: {title: MESSAGES.Admin.titles.homePage} },
-      { path: 'sign_in', component: SignInComponent, data: {title: 'Sign In'}, canActivate: [AuthGuardLoggedOutService] },
+      { path: 'sign_in', component: SignInComponent, data: { title: 'Sign in | Agency', logged: false }, canActivate: [AuthGuardService] },
       { path: 'contact', component: ContactComponent, data: {title: 'Contact Us'} }
     ] },
   { path: '**', component: NotFoundComponent, data: {title: MESSAGES.Web.notFound} }

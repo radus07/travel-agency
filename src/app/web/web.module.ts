@@ -14,11 +14,6 @@ import { AuthenticationService } from '../service/authentication.service';
 import { MyAccountService } from '../service/myAccount.service';
 import { RoleService } from '../service/role.service';
 import { AuthGuardService } from '../service/auth_guard/auth-guard.service';
-import { AuthGuardLoggedInService } from '../service/auth_guard/auth-guard.loggedIn.service';
-import { AuthGuardLoggedOutService } from '../service/auth_guard/auth-guard.loggedOut.service';
-import { AuthGuardAdminService } from '../service/auth_guard/auth-guard.admin.service';
-import { AuthGuardTravelAgentService } from '../service/auth_guard/auth-guard.travelAgent.service';
-import { AuthGuardGuestService } from '../service/auth_guard/auth-guard.guest.service';
 
 @NgModule({
   declarations: [
@@ -33,12 +28,7 @@ import { AuthGuardGuestService } from '../service/auth_guard/auth-guard.guest.se
     AuthenticationService, 
     MyAccountService, 
     RoleService, 
-    AuthGuardService,
-    AuthGuardLoggedInService, 
-    AuthGuardLoggedOutService,
-    AuthGuardAdminService,
-    AuthGuardTravelAgentService,
-    AuthGuardGuestService
+    AuthGuardService
   ]
 })
 export class WebModule { }

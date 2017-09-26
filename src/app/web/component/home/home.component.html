@@ -1,56 +1,31 @@
-<div id="page-wrapper" class="black-bg">
-  <div class="wrapper wrapper-content">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-          <div class="ibox-title">
-            <h5>Home Page Web</h5>
-          </div>
-          <div class="ibox-content">
-            <div class="row">
-              <div class="col-sm-6">
-                <h5>Non logged user</h5>
-              </div>
-              <div class="col-sm-6">
-                <h5>Logged user</h5>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-6">
-                <a [routerLink]="['/web/sign_in']">Sign In</a>
-              </div>
-              <div class="col-sm-6">
-                <a (click)="logoutUser()">Sign Out</a>
-              </div>
-            </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-6">
-                Information about agency.
-              </div>
-              <div class="col-sm-6">
-                <div *ngIf="userDetails.user.isEnabled === 0">
-                  {{userDetails.user.username}}, your account is disabled. 
-                  Please <b><a [routerLink]="['/web/contact']">contact us</a></b> for more details.
-                </div>
-                <div *ngIf="userDetails.user.isEnabled === 1">
-                  <a [routerLink]="['/agency']">
-                    <div class="col-sm-6">
-                      Agency
-                    </div>
-                  </a>
-                  <a [routerLink]="['/admin']">
-                    <div class="col-sm-6">
-                      Admin
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
+<div class="col-lg-12">
+  <div class="ibox float-e-margins">
+    <div class="ibox-title">
+      <h5>Home Page Web</h5>
+    </div>
+    <div class="ibox-content">
+      <div *ngIf="isLogged; then loggedTemplate else loginTemplate"></div>
+      <ng-template #loggedTemplate>
+        <div class="row">
+          <div class="col-sm-12 text-right"><a (click)="logoutAccount()">Sign out</a></div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-2"><a routerLink="/agency"><span>Travel Agency</span></a></div>
+          <div class="col-sm-2"><a routerLink="/admin"><span>Admin</span></a></div>
+        </div>
+      </ng-template>
+      <ng-template #loginTemplate>
+        <div class="row">
+          <div class="col-sm-12"> Information about agency... </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-12"> 
+            <p>You aren't logged. You can <a [routerLink]="['/web/sign_in']"><span>sign in</span></a> for explore our app.</p>
           </div>
         </div>
-      </div>
+      </ng-template>
     </div>
   </div>
-</div>

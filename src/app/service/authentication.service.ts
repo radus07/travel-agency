@@ -5,36 +5,41 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { UserService } from './user.service';
+import { MyAccountService } from './myAccount.service';
 
 @Injectable()
 export class AuthenticationService {
-  url: string = "http://localhost:8083/api/authenticate";
+  url: string = "http://localhost:8083/api/authenticate/";
 
   constructor(
     private http: HttpClient,
-    private userService: UserService
+    private accountService: MyAccountService
   ) { }
 
-  checkAuthentication(user: any, callback) {
-    return this.http.post(this.url, user)
+  checkAuthentication(account: any, callback) {
+    return this.http.post(this.url, account)
       .subscribe(data => callback(data));
   }
 
-  loginUser(user: any): void {
-    localStorage.setItem('user', JSON.stringify(user));
+  loginAccount(account: any): void {
+    localStorage.setItem('account', JSON.stringify(account));
+    this.accountService.isLogged = true;
   }
 
-  getUserDetails(): any {
-    let userDetails = JSON.parse(localStorage.getItem('user'));
-    /**
-     * Use the atob() function for decode base64 code.
-     * Use the btao() function for encode string in base64 code.
-     */
-    // this.userService.getUserById(userDetails.user_id, userDetails.token, (result) => {
-    //   userDetails.user = result;
-    // });
-    return userDetails;
-  }
+  // getUserDetails(callback): any {
+  //   /**
+  //    * Use the atob() function for decode base64 code.
+  //    * Use the btao() function for encode string in base64 code.
+  //    */
+  //   let id = JSON.parse(atob(localStorage.getItem('user').split('.')[1])).user_id;
+  //   this.getUserDetailsById(id, (result) => {
+  //     callback(JSON.parse(atob(result)));
+  //   });
+  // }
+
+  // private getUserDetailsById(id: number, callback): any {
+  //   this.http.get(this.url + 'userDetails/' + id)
+  //     .subscribe(data => callback(data));
+  // }
 
 }

@@ -17,23 +17,23 @@ export class SignInComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
   ) {
     this.loginForm = this.createLoginForm(this.formBuilder);
   }
 
-  submitForm(user: any): void {
+  submitForm(account: any): void {
     this.hasErrors = this.validateLoginForm(this.loginForm);
     if (this.hasErrors) {
       this.authResultStatus = 0;
       return;
     }
 
-    this.authService.checkAuthentication(user, (result) => {
+    this.authService.checkAuthentication(account, (result) => {
       this.authResultStatus = result.status;
       if (this.authResultStatus !== 404) {
-        let userDetails = result.data;
-        this.authService.loginUser(userDetails);
+        let accountrDetails = result.data;
+        this.authService.loginAccount(accountrDetails);
         this.router.navigateByUrl("/web/home");
       }
     });

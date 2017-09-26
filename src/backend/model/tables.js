@@ -1,14 +1,21 @@
 var sequelize = require('../dbconnection/dbconnection');
 var Role = sequelize.import('./roles');
-var User = sequelize.import('./users');
+var Account = sequelize.import('./accounts');
 
-User.belongsTo(Role);
-Role.hasMany(User);
+Account.belongsTo(Role);
+Role.hasMany(Account);
+
+// Role.sync({ force: true });
+// Account.sync({ force: true });
 
 module.exports['roles'] = Role;
-module.exports['users'] = User;
+module.exports['accounts'] = Account;
+
 
 /**
+ * Use this code for generate the model as table in the database
+ *  modelName.sync({ force: true });
+ * 
  * Use this code at command prompt for generate all tables as models in './' file
  *  sequelize-auto  -o "./" -d travel_agency -h localhost -u aliabibu -p 3306 -x aliabibu
  */

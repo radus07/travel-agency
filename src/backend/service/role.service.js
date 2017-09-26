@@ -1,19 +1,19 @@
 var sequelize = require('../dbconnection/dbconnection');
 var models = require('../model/tables');
 var Role = models.roles;
-var User = models.users;
+var Account = models.accounts;
 
 var roleService = {
   getAllRoles: (callback) => {
     Role.findAll({
-      include: [{ model: User }],
+      include: [{ model: Account }],
     }).then(result => {
       return callback(result);
     });
   },
   getRoleById: (id, callback) => {
     Role.findById(id, {
-      include: [{ model: User }],
+      include: [{ model: Account }],
     }).then(result => {
       return callback(result);
     })

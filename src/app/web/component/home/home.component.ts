@@ -10,36 +10,28 @@ import {
 } from '@angular/forms';
 
 import { MESSAGES } from '../../../app.component';
-import { AuthenticationService } from '../../../service/authentication.service';
-import { UserService } from '../../../service/user.service';
+import { MyAccountService } from '../../../service/myAccount.service';
 
 @Component({
   selector: 'home-section',
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
+  isLogged: boolean = this.accountService.isLogged;
   messages = MESSAGES.Web;
   userDetails: any = {};
-  isLogged: boolean = false;
-  hasErrors: string = '';
-  @ViewChild('loginForm') loginForm: any;
 
-  logoutUser(): void { 
-    alert('sign out');
-  }
-
-  login(): void { 
-    /**
-     * Get data from login form and send it to server using authService for checking
-     */
+  logoutAccount(): void { 
+    this.accountService.logoutAccount();
   }
 
   constructor(
-    private authService: AuthenticationService,
     private router: Router,
-    private userService: UserService
+    private accountService: MyAccountService
   ) { 
-    this.userDetails = this.authService.getUserDetails();
+    // this.authService.getUserDetails((result) => {
+    //   this.userDetails = result;
+    // });
   }
 
 }

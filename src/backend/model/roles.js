@@ -8,10 +8,14 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
-      type: DataTypes.STRING(30),
+    code: {
+      type: DataTypes.STRING(15),
       allowNull: false,
       unique: true
+    },
+    name: {
+      type: DataTypes.STRING(30),
+      allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,

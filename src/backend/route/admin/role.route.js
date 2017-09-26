@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var roleService = require('../service/role.service');
+var roleService = require('../../service/role.service');
 
 router.get('/', (req, res) => {
 	roleService.getAllRoles((result) => {

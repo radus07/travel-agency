@@ -1,27 +1,27 @@
 var sequelize = require('../dbconnection/dbconnection');
 var models = require('../model/tables');
-var User = models.users;
+var Account = models.accounts;
 var Role = models.roles;
 
-var userService = {
-  getAllUsers: (callback) => {
-    User.findAll({
+var accountService = {
+  getAllAccounts: (callback) => {
+    Account.findAll({
       include: [{ model: Role }],
       attributes: { exclude: ['roleId'] }
     }).then(result => {
       return callback(result);
     });
   },
-  getUserById: (id, callback) => {
-    User.findById(id, {
+  getAccountById: (id, callback) => {
+    Account.findById(id, {
       include: [{ model: Role }],
       attributes: { exclude: ['roleId'] }
     }).then(result => {
       return callback(result);
     })
   },
-  getUserByUsernameAndPassword: (username, password, callback) => {
-    User.findOne({ 
+  getAccountByUsernameAndPassword: (username, password, callback) => {
+    Account.findOne({ 
       where: { username: username, password: password },
       include: [{ model: Role }],
       attributes: { exclude: ['roleId'] }
@@ -29,23 +29,23 @@ var userService = {
       return callback(result);
     });
   },
-  saveUser: (user, callback) => {
-    User.build(user).save().then(result => {
+  saveAccount: (account, callback) => {
+    Account.build(account).save().then(result => {
       return callback(result);
     }).catch(error => {
       return callback(error);
     });
   },
-  updateUser: (user, callback) => {
-    User.update(user, { where: { id: user.id } }
+  updateAccount: (account, callback) => {
+    Account.update(account, { where: { id: account.id } }
     ).then(result => {
       return callback(result);
     });
   },
-  deleteUser: (id, callback) => {
-    User.destroy({ where: { id: id } }).then(result => {
+  deleteAccount: (id, callback) => {
+    Account.destroy({ where: { id: id } }).then(result => {
       return callback(result);
     });
   }
 }
-module.exports = userService;
+module.exports = accountService;

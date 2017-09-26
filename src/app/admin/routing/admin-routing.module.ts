@@ -6,12 +6,14 @@ import { HomeComponent } from '../component/home/home.component';
 import { UserComponent } from '../component/user/user.component';
 
 import { MESSAGES } from '../../app.component';
+import { AuthGuardLoggedInService } from '../../service/auth_guard/auth-guard.loggedIn.service';
+import { AuthGuardAdminService } from '../../service/auth_guard/auth-guard.admin.service';
 
 const routes: Routes = [
   { path: 'admin', component: AdminComponent,
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent, data: {title: MESSAGES.Admin.titles.homePage} },
+      { path: 'home', component: HomeComponent, data: {title: MESSAGES.Admin.titles.homePage}, canActivate: [AuthGuardLoggedInService, AuthGuardAdminService] },
       { path: 'users', component: UserComponent, data: {title: MESSAGES.Admin.titles.usersPage} }
     ]
   },

@@ -11,8 +11,14 @@ import { NotFoundComponent } from '../common/component/error/404/not-found.compo
 import { WebRoutingModule } from './routing/web-routing.module';
 
 import { AuthenticationService } from '../service/authentication.service';
-import { UserService } from '../service/user.service';
+import { MyAccountService } from '../service/myAccount.service';
 import { RoleService } from '../service/role.service';
+import { AuthGuardService } from '../service/auth_guard/auth-guard.service';
+import { AuthGuardLoggedInService } from '../service/auth_guard/auth-guard.loggedIn.service';
+import { AuthGuardLoggedOutService } from '../service/auth_guard/auth-guard.loggedOut.service';
+import { AuthGuardAdminService } from '../service/auth_guard/auth-guard.admin.service';
+import { AuthGuardTravelAgentService } from '../service/auth_guard/auth-guard.travelAgent.service';
+import { AuthGuardGuestService } from '../service/auth_guard/auth-guard.guest.service';
 
 @NgModule({
   declarations: [
@@ -23,6 +29,16 @@ import { RoleService } from '../service/role.service';
     ContactComponent
   ],
   imports: [BrowserModule, WebRoutingModule, FormsModule, ReactiveFormsModule],
-  providers: [AuthenticationService, UserService, RoleService]
+  providers: [
+    AuthenticationService, 
+    MyAccountService, 
+    RoleService, 
+    AuthGuardService,
+    AuthGuardLoggedInService, 
+    AuthGuardLoggedOutService,
+    AuthGuardAdminService,
+    AuthGuardTravelAgentService,
+    AuthGuardGuestService
+  ]
 })
 export class WebModule { }

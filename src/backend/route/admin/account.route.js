@@ -1,39 +1,39 @@
 var express = require('express');
 var router = express.Router();
-var userService = require('../service/user.service');
+var accountService = require('../../service/account.service');
 
 router.get('/', (req, res) => {
-	userService.getAllUsers((result) => {
+	accountService.getAllAccounts((result) => {
 		res.json(result);
 	});
 });
 
 router.get('/:id', (req, res) => {
-	userService.getUserById(req.params.id, (result) => {
+	accountService.getAccountById(req.params.id, (result) => {
 		res.json(result);
 	});
 });
 
 router.get('/:username/:password', (req, res) => {
-	userService.getUserByUsernameAndPassword(req.params.username, req.params.password, (result) => {
+	accountService.getAccountByUsernameAndPassword(req.params.username, req.params.password, (result) => {
 		res.json(result);
 	})
 });
 
 router.put('/save', (req, res) => {
-	userService.saveUser(req.body, (result) => {
+	accountService.saveAccount(req.body, (result) => {
 		res.json(result);
 	});
 });
 
 router.post('/update', (req, res) => {
-	userService.updateUser(req.body, (result) => {
+	accountService.updateAccount(req.body, (result) => {
 		res.json(result);
 	});
 });
 
 router.delete('/delete/:id', (req, res) => {
-	userService.deleteUser(req.params.id, (result) => {
+	accountService.deleteAccount(req.params.id, (result) => {
 		res.json(result);
 	})
 });

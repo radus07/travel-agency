@@ -12,7 +12,7 @@ import { ProtectedDirective } from '../common/directive/protected.directive';
 
 import { AdminRoutingModule } from './routing/admin-routing.module';
 
-import { UserService } from '../service/user.service';
+import { MyAccountService } from '../service/myAccount.service';
 
 @NgModule({
   declarations: [
@@ -25,6 +25,6 @@ import { UserService } from '../service/user.service';
     ProtectedDirective
   ],
   imports: [BrowserModule, AdminRoutingModule, FormsModule, ReactiveFormsModule],
-  providers: [UserService]
+  providers: [MyAccountService]
 })
 export class AdminModule { }

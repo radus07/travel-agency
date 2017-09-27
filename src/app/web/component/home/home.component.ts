@@ -36,7 +36,7 @@ export class HomeComponent {
 
   private setIsEnabled() {
     if (this.isLogged) {
-      this.myAccountService.getAccountDetails()
+      this.myAccountService.getPublicDetails()
         .catch(err => {
           console.log('user not found');
           return Observable.empty();

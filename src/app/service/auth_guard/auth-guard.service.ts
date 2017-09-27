@@ -30,7 +30,7 @@ export class AuthGuardService implements CanActivate {
 
   checkRolesForAccount(roles: Array<string>): Observable<any> {
     return Observable.create(observer => {
-      this.myAccountService.getAccountDetails()
+      this.myAccountService.getPublicDetails()
         .catch(err => {
           console.log('user not found');
           return Observable.empty();
@@ -40,7 +40,7 @@ export class AuthGuardService implements CanActivate {
             observer.next('notEnabled');
           } else {
             roles.forEach(role => {
-              if (role === result.data.role.code) {
+              if (role === result.data.role) {
                 observer.next(true);
               }
             });

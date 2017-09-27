@@ -32,10 +32,24 @@ export class MyAccountService {
     })
   }
 
-  getAccountDetails(): Observable<any> {
+  getPublicDetails(): Observable<any> {
     return new Observable(observer => {
       let id = JSON.parse(atob(localStorage.getItem('account').split('.')[1])).account_id;
-      this.http.get(this.url + id + '?token=' + JSON.parse(localStorage.getItem('account')))
+      this.http.get(this.url + 'publicDetails/' + id + '?token=' + JSON.parse(localStorage.getItem('account')))
+        .subscribe(data => {
+          if (data === 404) {
+            observer.error(404)
+          } else {
+            observer.next(data);
+          }
+        });
+    })
+  }
+
+  getPersonalDetails(): Observable<any> {
+    return new Observable(observer => {
+      let id = JSON.parse(atob(localStorage.getItem('account').split('.')[1])).account_id;
+      this.http.get(this.url + 'personalDetails/' + id + '?token=' + JSON.parse(localStorage.getItem('account')))
         .subscribe(data => {
           if (data === 404) {
             observer.error(404)

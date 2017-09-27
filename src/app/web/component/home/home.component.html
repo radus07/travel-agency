@@ -4,28 +4,26 @@
       <h5>Home Page Web</h5>
     </div>
     <div class="ibox-content">
-      <div *ngIf="isLogged; then loggedTemplate else loginTemplate"></div>
-      <ng-template #loggedTemplate>
-        <div class="row">
-          <div class="col-sm-12 text-right"><a (click)="logoutAccount()">Sign out</a></div>
-        </div>
+      <div class="row" *ngIf="isLogged">
+        <div class="col-sm-12 text-right"><a (click)="logoutAccount()">Sign out</a></div>
+        <hr> 
+      </div>
+      <div class="row" *ngIf="!isLogged">
+        <div class="col-sm-12"> Information about agency... </div>
         <hr>
-        <div class="row">
-          <div class="col-sm-4"></div>
-          <div class="col-sm-2"><a routerLink="/agency"><span>Travel Agency</span></a></div>
-          <div class="col-sm-2"><a routerLink="/admin"><span>Admin</span></a></div>
+        <div class="col-sm-12">
+          <p>You aren't logged. You can <a [routerLink]="['/web/sign_in']"><span>sign in</span></a> for explore our app.</p>
         </div>
-      </ng-template>
-      <ng-template #loginTemplate>
-        <div class="row">
-          <div class="col-sm-12"> Information about agency... </div>
+      </div>
+      <div class="row" *ngIf="(isLogged && isEnabled)">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-2"><a routerLink="/agency"><span>Travel Agency</span></a></div>
+        <div class="col-sm-2"><a routerLink="/admin"><span>Admin</span></a></div>
+      </div>
+      <div class="row" *ngIf="(isLogged && !isEnabled)">
+        <div class="col-sm-12">
+          <p>Your account is disabled. For more details <a [routerLink]="['/web/contact']">contact</a> us.</p>
         </div>
-        <hr>
-        <div class="row">
-          <div class="col-sm-12"> 
-            <p>You aren't logged. You can <a [routerLink]="['/web/sign_in']"><span>sign in</span></a> for explore our app.</p>
-          </div>
-        </div>
-      </ng-template>
+      </div>
     </div>
   </div>

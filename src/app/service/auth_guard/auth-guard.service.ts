@@ -30,21 +30,24 @@ export class AuthGuardService implements CanActivate {
 
   checkRolesForAccount(roles: Array<string>): Observable<any> {
     return Observable.create(observer => {
-      let id = JSON.parse(atob(localStorage.getItem('account').split('.')[1])).account_id;
-      this.myAccountService.getAccountById(id)
-      .catch(err => {
-        console.log('user not found');
-        return Observable.empty();
-      })
-      .subscribe((result) => {
-        roles.forEach(role => {
-          if (role === result.data.role.code) {
-            observer.next(true);
-          }
+      this.myAccountService.getAccountDetails()
+        .catch(err => {
+          console.log('user not found');
+          return Observable.empty();
+        })
+        .subscribe((result) => {
+          if (result.data.isEnabled !== 1) {
+            observer.next('notEnabled');
+          } else {
+            roles.forEach(role => {
+              if (role === result.data.role.code) {
+                observer.next(true);
+              }
+            });
+            observer.next('notPermissions');
+          }          
         });
-        observer.next('notPermissions');
       });
-    });
   }
 
   isAccountOn(): boolean {
@@ -56,6 +59,8 @@ export class AuthGuardService implements CanActivate {
       this.notPermissions();
     } else if (error === 'notAuthenticated') {
       this.notAuthenticated();
+    } else if (error === 'notEnabled') {
+      this.notEnabled();
     }
   }
 
@@ -66,6 +71,11 @@ export class AuthGuardService implements CanActivate {
 
   notAuthenticated() {
     console.log("You must be logged in for load this page.");
+    this.router.navigateByUrl('/web/home');
+  }
+
+  notEnabled() {
+    console.log("Your account must be enabled for load this page.");
     this.router.navigateByUrl('/web/home');
   }
 

@@ -8,6 +8,7 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 import { MESSAGES } from '../../../app.component';
 import { MyAccountService } from '../../../service/myAccount.service';
@@ -17,21 +18,33 @@ import { MyAccountService } from '../../../service/myAccount.service';
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  isLogged: boolean = this.accountService.isLogged;
+  isLogged: boolean = this.myAccountService.isLogged;
+  isEnabled: boolean;
   messages = MESSAGES.Web;
   userDetails: any = {};
 
   logoutAccount(): void { 
-    this.accountService.logoutAccount();
+    this.myAccountService.logoutAccount();
   }
 
   constructor(
     private router: Router,
-    private accountService: MyAccountService
+    private myAccountService: MyAccountService
   ) { 
-    // this.authService.getUserDetails((result) => {
-    //   this.userDetails = result;
-    // });
+    this.setIsEnabled();
+  }
+
+  private setIsEnabled() {
+    if (this.isLogged) {
+      this.myAccountService.getAccountDetails()
+        .catch(err => {
+          console.log('user not found');
+          return Observable.empty();
+        })
+        .subscribe((result) => {
+          this.isEnabled = result.data.isEnabled;
+        });
+    }
   }
 
 }

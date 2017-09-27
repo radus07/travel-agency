@@ -32,11 +32,9 @@ export class MyAccountService {
     })
   }
 
-  getAccountById(id: number): Observable<any> {
-    /**
-     * Http request for retrieve data from db
-     */
+  getAccountDetails(): Observable<any> {
     return new Observable(observer => {
+      let id = JSON.parse(atob(localStorage.getItem('account').split('.')[1])).account_id;
       this.http.get(this.url + id + '?token=' + JSON.parse(localStorage.getItem('account')))
         .subscribe(data => {
           if (data === 404) {

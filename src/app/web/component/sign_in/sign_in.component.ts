@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Rx';
 
 import { AuthenticationService } from '../../../service/authentication.service';
 
@@ -28,14 +29,23 @@ export class SignInComponent {
       this.authResultStatus = 0;
       return;
     }
-
-    this.authService.checkAuthentication(account, (result) => {
-      this.authResultStatus = result.status;
-      if (this.authResultStatus !== 404) {
-        this.authService.loginAccount(result.data);
-        this.router.navigateByUrl("/web/home");
-      }
-    });
+    
+    this.authService.checkAuthentication(account)
+      .catch(err => {
+        this.authResultStatus = err;
+        console.log('error handling');
+        return Observable.empty();
+      })
+      .subscribe(result => {
+        this.authService.loginAccount(result.data)
+          .catch(err => {
+            console.log('loggin error');
+            return Observable.empty();
+          })
+          .subscribe(() => {
+            this.router.navigateByUrl("/web/home");
+          });
+      });
   }
 
   private createLoginForm(formBuilder: FormBuilder): FormGroup {

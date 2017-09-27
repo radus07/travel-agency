@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { Router } from '@angular/router';
 
@@ -20,17 +23,29 @@ export class MyAccountService {
     this.router.navigateByUrl('/web/sign_in');
   }
 
-  getAccounts(callback): any {
-    return this.http.get(this.url)
-      .subscribe(data => callback(data));
+  getAccounts(callback): Observable<any> {
+    return new Observable(observer => {
+      this.http.get(this.url)
+        .subscribe(data => {
+          observer.next(data);
+        });
+    })
   }
 
-  getAccountById(id: number, callback): any {
+  getAccountById(id: number): Observable<any> {
     /**
      * Http request for retrieve data from db
      */
-    this.http.get(this.url + id + '?token=' + JSON.parse(localStorage.getItem('account')))
-      .subscribe(data => callback(data));
+    return new Observable(observer => {
+      this.http.get(this.url + id + '?token=' + JSON.parse(localStorage.getItem('account')))
+        .subscribe(data => {
+          if (data === 404) {
+            observer.error(404)
+          } else {
+            observer.next(data);
+          }
+        });
+    })
   }
 
 }

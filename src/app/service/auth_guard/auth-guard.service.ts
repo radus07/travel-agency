@@ -20,29 +20,30 @@ export class AuthGuardService implements CanActivate {
     } else if (route.data.logged && !this.isAccountOn()) {
       this.notAuthenticated();
     } else if (route.data.logged && this.isAccountOn()) {
-        return this.checkRoleForAccount(route.data.roles)
-          .map((result) => {
-            this.manageError(result);
-            return true;
-          });
+      return this.checkRolesForAccount(route.data.roles)
+        .map((result) => {
+          this.manageError(result);
+          return true;
+        });
     }
   }
 
-  checkRoleForAccount(roles: Array<string>): Observable<any> {
-    return Observable.create(result => {
-      if (this.isAccountOn()) {
-        let id = JSON.parse(atob(localStorage.getItem('account').split('.')[1])).account_id;
-        this.myAccountService.getAccountById(id, (data) => {
-          roles.forEach(role => {
-            if (role === data.role.code) {
-              result.next(true);
-            }
-          });
-          result.next('notPermissions');
+  checkRolesForAccount(roles: Array<string>): Observable<any> {
+    return Observable.create(observer => {
+      let id = JSON.parse(atob(localStorage.getItem('account').split('.')[1])).account_id;
+      this.myAccountService.getAccountById(id)
+      .catch(err => {
+        console.log('user not found');
+        return Observable.empty();
+      })
+      .subscribe((result) => {
+        roles.forEach(role => {
+          if (role === result.data.role.code) {
+            observer.next(true);
+          }
         });
-      } else {
-        result.next('notAuthenticated');
-      }
+        observer.next('notPermissions');
+      });
     });
   }
 

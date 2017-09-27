@@ -4,37 +4,53 @@ var Role = models.roles;
 var Account = models.accounts;
 
 var roleService = {
-  getAllRoles: (callback) => {
-    Role.findAll({
-      include: [{ model: Account }],
-    }).then(result => {
-      return callback(result);
-    });
-  },
-  getRoleById: (id, callback) => {
-    Role.findById(id, {
-      include: [{ model: Account }],
-    }).then(result => {
-      return callback(result);
+  getAllRoles: () => {
+    return new Promise((resolve, reject) => {
+      Role.findAll({
+        include: [{ model: Account }],
+      })
+      .then(result => {
+        return resolve(result);
+      });
     })
   },
-  saveRole: (role, callback) => {
-    Role.build(role).save().then(result => {
-      return callback(result);
-    }).catch(error => {
-      return callback(error);
-    });
+  getRoleById: (id) => {
+    return new Promise((resolve, reject) => {
+      Role.findById(id, {
+        include: [{ model: Account }],
+      })
+      .then(result => {
+        return resolve(result);
+      })
+    })
   },
-  updateRole: (role, callback) => {
-    Role.update(role, { where: { id: role.id } }
-    ).then(result => {
-      return callback(result);
-    });
+  saveRole: (role) => {
+    return new Promise((resolve, reject) => {
+      Role.build(role).save()
+      .then(result => {
+        return resolve(result);
+      })
+      .catch(error => {
+        return reject(error);
+      });
+    })
   },
-  deleteRole: (id, callback) => {
-    Role.destroy({ where: { id: id } }).then(result => {
-      return callback(result);
-    });
+  updateRole: (role) => {
+    return new Promise((resolve, reject) => {
+      Role.update(role, { where: { id: role.id } }
+      )
+      .then(result => {
+        return resolve(result);
+      });
+    })
+  },
+  deleteRole: (id) => {
+    return new Promise((resolve, reject) => {
+      Role.destroy({ where: { id: id } })
+      .then(result => {
+        return resolve(result);
+      });
+    })
   }
 }
 module.exports = roleService;

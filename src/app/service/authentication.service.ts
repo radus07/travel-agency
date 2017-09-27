@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -16,14 +16,25 @@ export class AuthenticationService {
     private accountService: MyAccountService
   ) { }
 
-  checkAuthentication(account: any, callback) {
-    return this.http.post(this.url, account)
-      .subscribe(data => callback(data));
+  checkAuthentication(account: any): Observable<any> {
+    return new Observable(observer => {
+      this.http.post(this.url, account)
+        .subscribe(data => {
+          if (data === 404) {
+            observer.error(404)
+          } else {
+            observer.next(data);
+          }
+      })
+    })
   }
 
-  loginAccount(account: any): void {
-    localStorage.setItem('account', JSON.stringify(account));
-    this.accountService.isLogged = true;
+  loginAccount(account: any): Observable<any> {
+    return new Observable(observer => {
+      localStorage.setItem('account', JSON.stringify(account));
+      this.accountService.isLogged = true;
+      observer.next();
+    });
   }
 
   // getUserDetails(callback): any {

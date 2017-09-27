@@ -5,14 +5,14 @@ var app = require('../../server');
 var accountService = require('../../service/account.service');
 
 router.post('/', (req, res) => {
-  accountService.getAccountByUsernameAndPassword(req.body.username, req.body.password, (result) => {
-    if (result === null) {
-      res.send({ status: 404 });
-    } else {
+  accountService.getAccountByUsernameAndPassword(req.body.username, req.body.password)
+    .then((result) => {
       var token = jwt.sign({ account_id: result.dataValues.id }, 'secretWord');
       res.send({ status: 200, data: token });
-    }
-  });
+    })
+    .catch((error) => {
+      res.json(404)
+    });
 });
 
 // router.get('/userDetails/:id', (req, res) => {

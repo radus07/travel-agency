@@ -4,47 +4,72 @@ var Account = models.accounts;
 var Role = models.roles;
 
 var accountService = {
-  getAllAccounts: (callback) => {
-    Account.findAll({
-      include: [{ model: Role }],
-      attributes: { exclude: ['roleId'] }
-    }).then(result => {
-      return callback(result);
+  getAllAccounts: () => {
+    return new Promise((resolve, reject) => {
+      Account.findAll({
+        include: [{ model: Role }],
+        attributes: { exclude: ['roleId'] }
+      })
+      .then(result => {
+        resolve(result);
+      });
     });
   },
-  getAccountById: (id, callback) => {
-    Account.findById(id, {
-      include: [{ model: Role }],
-      attributes: { exclude: ['roleId'] }
-    }).then(result => {
-      return callback(result);
+  getAccountById: (id) => {
+    return new Promise((resolve, reject) => {
+      Account.findById(id, {
+        include: [{ model: Role }],
+        attributes: { exclude: ['roleId'] }
+      })
+      .then(result => {
+        if (result) {
+          resolve(result);
+        } else {
+          reject(result);
+        }
+      });
+    });
+  },
+  getAccountByUsernameAndPassword: (username, password) => {
+    return new Promise((resolve, reject) => {
+      Account.findOne({
+        where: { username: username, password: password },
+        include: [{ model: Role }],
+        attributes: { exclude: ['roleId'] }
+      })
+      .then(result => {
+        if (result) {
+          resolve(result);
+        } else {
+          reject(result);
+        }
+      });
     })
   },
-  getAccountByUsernameAndPassword: (username, password, callback) => {
-    Account.findOne({ 
-      where: { username: username, password: password },
-      include: [{ model: Role }],
-      attributes: { exclude: ['roleId'] }
-    }).then(result => {
-      return callback(result);
+  saveAccount: (account) => {
+    return new Promise((resolve, reject) => {
+      Account.build(account).save()
+      .then(result => {
+        resolve(result);
+      }).catch(error => {
+        reject(result);
+      });
     });
   },
-  saveAccount: (account, callback) => {
-    Account.build(account).save().then(result => {
-      return callback(result);
-    }).catch(error => {
-      return callback(error);
+  updateAccount: (account) => {
+    return new Promise((resolve, reject) => {
+      Account.update(account, { where: { id: account.id } })
+      .then(result => {
+        resolve(result);
+      });
     });
   },
-  updateAccount: (account, callback) => {
-    Account.update(account, { where: { id: account.id } }
-    ).then(result => {
-      return callback(result);
-    });
-  },
-  deleteAccount: (id, callback) => {
-    Account.destroy({ where: { id: id } }).then(result => {
-      return callback(result);
+  deleteAccount: (id) => {
+    return new Promise((resolve, reject) => {
+      Account.destroy({ where: { id: id } })
+      .then(result => {
+        resolve(result);
+      });
     });
   }
 }

@@ -9,74 +9,60 @@ export class AuthGuardService implements CanActivate {
 
   constructor(
     private myAccountService: MyAccountService,
-    private router: Router
-  ) { }
-  
+    private router: Router,
+  ) {
+  }
+
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-    if (!route.data.logged && !this.isAccountOn()) {
-      return true;
-    } else if (!route.data.logged && this.isAccountOn()) {
-      this.router.navigateByUrl('/web/home');
-    } else if (route.data.logged && !this.isAccountOn()) {
-      this.notAuthenticated();
-    } else if (route.data.logged && this.isAccountOn()) {
-      return this.checkRolesForAccount(route.data.roles)
-        .map((result) => {
-          this.manageError(result);
+    return this.myAccountService.getAccount()
+      .map((result) => {
+        if (!route.data.logged && !result.isLogged) {
           return true;
-        });
-    }
-  }
-
-  checkRolesForAccount(roles: Array<string>): Observable<any> {
-    return Observable.create(observer => {
-      this.myAccountService.getPublicDetails()
-        .catch(err => {
-          console.log('user not found');
-          return Observable.empty();
-        })
-        .subscribe((result) => {
-          if (result.data.isEnabled !== 1) {
-            observer.next('notEnabled');
-          } else {
-            roles.forEach(role => {
-              if (role === result.data.role) {
-                observer.next(true);
-              }
-            });
-            observer.next('notPermissions');
-          }          
-        });
+        } else if (!route.data.logged && result.isLogged) {
+          this.router.navigateByUrl('/web/home');
+        } else if (route.data.logged && !result.isLogged) {
+          return this.getError('unauthenticated');
+        } else if (route.data.logged && result.isLogged) {
+          if (!result.details.isEnabled) {
+            return this.getError('disabled');
+          }
+          return this.checkRolesForAccount(route.data.roles, result.details)
+        }
+      })
+      .catch(() => {
+        this.router.navigate(['/web/home']);
+        return Observable.of(false);
       });
+
   }
 
-  isAccountOn(): boolean {
-    return this.myAccountService.isLogged;
+  private checkRolesForAccount(roles: Array<string>, account: any): boolean {
+    for (let role of roles) {
+      if (role === account.role) {
+        return true;
+      }
+    }
+    return this.getError('unauthorized');
   }
 
-  manageError(error: string) {
-    if (error === 'notPermissions') {
-      this.notPermissions();
-    } else if (error === 'notAuthenticated') {
-      this.notAuthenticated();
-    } else if (error === 'notEnabled') {
-      this.notEnabled();
+  private getError(error: string): boolean {
+    switch (error) {
+      case 'unauthenticated': {
+        return this.errorHandling('You must be logged in for load this page.');
+      }
+      case 'unauthorized': {
+        return this.errorHandling('You haven\'t permissions for load this page.');
+      }
+      case 'disabled': {
+        return this.errorHandling('Your account must be enabled for load this page.');
+      }
     }
   }
 
-  notPermissions() {
-    console.log("You haven't permissions for load this page.");
+  private errorHandling(message: string): boolean {
+    console.log(message);
     this.router.navigateByUrl('/web/home');
-  }
-
-  notAuthenticated() {
-    console.log("You must be logged in for load this page.");
-    this.router.navigateByUrl('/web/home');
-  }
-
-  notEnabled() {
-    console.log("Your account must be enabled for load this page.");
-    this.router.navigateByUrl('/web/home');
+    return false;
   }
 
 }

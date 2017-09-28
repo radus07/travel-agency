@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   ReactiveFormsModule,
   FormsModule,
@@ -18,33 +18,18 @@ import { MyAccountService } from '../../../service/myAccount.service';
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  isLogged: boolean = this.myAccountService.isLogged;
-  isEnabled: boolean;
+  account: any;
   messages = MESSAGES.Web;
-  userDetails: any = {};
 
   logoutAccount(): void { 
     this.myAccountService.logoutAccount();
   }
 
   constructor(
-    private router: Router,
+    private route: ActivatedRoute,
     private myAccountService: MyAccountService
   ) { 
-    this.setIsEnabled();
-  }
-
-  private setIsEnabled() {
-    if (this.isLogged) {
-      this.myAccountService.getPublicDetails()
-        .catch(err => {
-          console.log('user not found');
-          return Observable.empty();
-        })
-        .subscribe((result) => {
-          this.isEnabled = result.data.isEnabled;
-        });
-    }
+    this.account = this.route.snapshot.data['account'];
   }
 
 }

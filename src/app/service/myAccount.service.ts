@@ -1,20 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
-import { Router } from '@angular/router';
 
 @Injectable()
 export class MyAccountService {
   isLogged: boolean = (localStorage.getItem('account') !== null) ? true : false;
-  url: string = "http://localhost:8083/api/myAccount/";
+  private url: string = "http://localhost:8083/api/myAccount/";
 
   constructor(
     private http: HttpClient,
     private router: Router
-  ) { 
+  ) {
+  }
+
+  getAccount() {
+    if (this.isLogged) {
+      return this.getPublicDetails()
+        .map((result) => {
+          return { isLogged: this.isLogged, details: result };
+        })
+    } else {
+      return new Observable(observer => {
+        observer.next({ isLogged: false });
+        observer.complete();
+      })
+    }
+
   }
 
   logoutAccount(): void {
@@ -23,41 +36,18 @@ export class MyAccountService {
     this.router.navigateByUrl('/web/sign_in');
   }
 
-  getAccounts(callback): Observable<any> {
-    return new Observable(observer => {
-      this.http.get(this.url)
-        .subscribe(data => {
-          observer.next(data);
-        });
-    })
+  private getPublicDetails(): Observable<any> {
+    let id = JSON.parse(atob(localStorage.getItem('account').split('.')[1])).account_id;
+    return this.http.get(this.url + 'publicDetails/' + id + '?token=' + JSON.parse(localStorage.getItem('account')))
+      .map((result: any) => {
+        return result.data;
+      });
   }
 
-  getPublicDetails(): Observable<any> {
-    return new Observable(observer => {
-      let id = JSON.parse(atob(localStorage.getItem('account').split('.')[1])).account_id;
-      this.http.get(this.url + 'publicDetails/' + id + '?token=' + JSON.parse(localStorage.getItem('account')))
-        .subscribe(data => {
-          if (data === 404) {
-            observer.error(404)
-          } else {
-            observer.next(data);
-          }
-        });
-    })
-  }
-
-  getPersonalDetails(): Observable<any> {
-    return new Observable(observer => {
-      let id = JSON.parse(atob(localStorage.getItem('account').split('.')[1])).account_id;
-      this.http.get(this.url + 'personalDetails/' + id + '?token=' + JSON.parse(localStorage.getItem('account')))
-        .subscribe(data => {
-          if (data === 404) {
-            observer.error(404)
-          } else {
-            observer.next(data);
-          }
-        });
-    })
+  private getPersonalDetails() {
+    /**
+     * Like getPublicDetails()
+     */
   }
 
 }

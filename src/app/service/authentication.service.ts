@@ -9,7 +9,7 @@ import { MyAccountService } from './myAccount.service';
 
 @Injectable()
 export class AuthenticationService {
-  url: string = "http://localhost:8083/api/authenticate/";
+  private url: string = "http://localhost:8083/api/authenticate/";
 
   constructor(
     private http: HttpClient,
@@ -36,21 +36,5 @@ export class AuthenticationService {
       observer.next();
     });
   }
-
-  // getUserDetails(callback): any {
-  //   /**
-  //    * Use the atob() function for decode base64 code.
-  //    * Use the btao() function for encode string in base64 code.
-  //    */
-  //   let id = JSON.parse(atob(localStorage.getItem('user').split('.')[1])).user_id;
-  //   this.getUserDetailsById(id, (result) => {
-  //     callback(JSON.parse(atob(result)));
-  //   });
-  // }
-
-  // private getUserDetailsById(id: number, callback): any {
-  //   this.http.get(this.url + 'userDetails/' + id)
-  //     .subscribe(data => callback(data));
-  // }
 
 }

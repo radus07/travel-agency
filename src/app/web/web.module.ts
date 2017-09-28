@@ -14,6 +14,7 @@ import { AuthenticationService } from '../service/authentication.service';
 import { MyAccountService } from '../service/myAccount.service';
 import { RoleService } from '../service/role.service';
 import { AuthGuardService } from '../service/auth_guard/auth-guard.service';
+import { AccountResolver } from '../service/resolver/accountResolver';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AuthGuardService } from '../service/auth_guard/auth-guard.service';
     AuthenticationService, 
     MyAccountService, 
     RoleService, 
-    AuthGuardService
+    AuthGuardService,
+    AccountResolver
   ]
 })
 export class WebModule { }

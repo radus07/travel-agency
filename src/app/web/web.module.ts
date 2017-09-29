@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule, MdInputModule } from '@angular/material';
+
 import { WebComponent } from './component/web.component';
 import { HomeComponent } from './component/home/home.component';
 import { ContactComponent } from './component/contact/contact.component';
@@ -24,7 +27,19 @@ import { AccountResolver } from '../service/resolver/accountResolver';
     SignInComponent,
     ContactComponent
   ],
-  imports: [BrowserModule, WebRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule, 
+    WebRoutingModule, 
+    FormsModule, 
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MdButtonModule,
+    MdMenuModule,
+    MdCardModule,
+    MdToolbarModule,
+    MdInputModule,
+    MdIconModule
+  ],
   providers: [
     AuthenticationService, 
     MyAccountService, 

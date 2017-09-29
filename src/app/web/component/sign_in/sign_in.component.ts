@@ -7,7 +7,8 @@ import { AuthenticationService } from '../../../service/authentication.service';
 
 @Component({
   selector: 'sign_in-section',
-  templateUrl: './sign_in.component.html'
+  templateUrl: './sign_in.component.html',
+  styleUrls: ['./sign_in.component.scss']
 })
 export class SignInComponent {
 
@@ -24,8 +25,9 @@ export class SignInComponent {
   }
 
   submitForm(account: any): void {
-    this.hasErrors = this.validateLoginForm(this.loginForm);
-    if (this.hasErrors) {
+    console.log(account);
+    this.hasErrors = !this.validateLoginForm(this.loginForm);
+    if (!this.validateLoginForm(this.loginForm)) {
       this.authResultStatus = 0;
       return;
     }
@@ -38,13 +40,14 @@ export class SignInComponent {
       })
       .subscribe(result => {
         this.authService.loginAccount(result.data)
-          .catch(err => {
-            console.log('loggin error');
-            return Observable.empty();
-          })
-          .subscribe(() => {
-            this.router.navigateByUrl("/web/home");
-          });
+          .subscribe(() => alert("legged"))
+          // .catch(err => {
+          //   console.log('loggin error');
+          //   return Observable.empty();
+          // })
+          // .subscribe(() => {
+          //   this.router.navigateByUrl("/web/home");
+          // });
       });
   }
 
@@ -56,7 +59,7 @@ export class SignInComponent {
   }
 
   private validateLoginForm(loginForm: FormGroup): boolean {
-    return loginForm.invalid;
+    return loginForm.valid;
   }
 
 }

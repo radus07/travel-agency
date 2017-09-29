@@ -13,9 +13,7 @@ export const MESSAGES = (<any>data);
 @Component({
   selector: 'app-root',
   template: `
-    <div id="wrapper">
-      <router-outlet></router-outlet>
-    </div>
+    <router-outlet></router-outlet>
   `
 })
 export class AppComponent implements OnInit {

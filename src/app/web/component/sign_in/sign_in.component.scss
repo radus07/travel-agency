@@ -1,0 +1,23 @@
+.sign_in {
+  .signin-container {
+    width: 100%;
+    display: table;
+
+    .form-section {
+      width: 30%;
+      display: table-cell;
+
+      .signin-form {
+        width: 60%;
+
+        .mat-form-field {
+          width: 220px;
+        }
+      }
+    }
+    .detail-section {
+      width: 70%;
+      display: table-cell;
+    }
+  }
+}

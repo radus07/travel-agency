@@ -40,14 +40,13 @@ export class SignInComponent {
       })
       .subscribe(result => {
         this.authService.loginAccount(result.data)
-          .subscribe(() => alert("legged"))
-          // .catch(err => {
-          //   console.log('loggin error');
-          //   return Observable.empty();
-          // })
-          // .subscribe(() => {
-          //   this.router.navigateByUrl("/web/home");
-          // });
+          .catch(err => {
+            console.log('loggin error');
+            return Observable.empty();
+          })
+          .subscribe(() => {
+            this.router.navigateByUrl("/web/home");
+          });
       });
   }
 

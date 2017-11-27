@@ -1,23 +1,30 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MdButtonModule, MdCardModule, MdMenuModule, MdToolbarModule, MdIconModule, MdInputModule } from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatToolbarModule
+} from '@angular/material';
 
-import { WebComponent } from './component/web.component';
-import { HomeComponent } from './component/home/home.component';
-import { ContactComponent } from './component/contact/contact.component';
-import { SignInComponent } from './component/sign_in/sign_in.component';
-import { NotFoundComponent } from '../common/component/error/404/not-found.component';
+import {WebComponent} from './component/web.component';
+import {HomeComponent} from './component/home/home.component';
+import {ContactComponent} from './component/contact/contact.component';
+import {SignInComponent} from './component/sign_in/sign_in.component';
+import {NotFoundComponent} from '../common/component/error/404/not-found.component';
 
-import { WebRoutingModule } from './routing/web-routing.module';
+import {WebRoutingModule} from './routing/web-routing.module';
 
-import { AuthenticationService } from '../service/authentication.service';
-import { MyAccountService } from '../service/myAccount.service';
-import { RoleService } from '../service/role.service';
-import { AuthGuardService } from '../service/auth_guard/auth-guard.service';
-import { AccountResolver } from '../service/resolver/accountResolver';
+import {AuthenticationService} from '../service/authentication.service';
+import {MyAccountService} from '../service/myAccount.service';
+import {RoleService} from '../service/role.service';
+import {AuthGuardService} from '../service/auth_guard/auth-guard.service';
+import {AccountResolver} from '../service/resolver/accountResolver';
 
 @NgModule({
   declarations: [
@@ -28,24 +35,25 @@ import { AccountResolver } from '../service/resolver/accountResolver';
     ContactComponent
   ],
   imports: [
-    BrowserModule, 
-    WebRoutingModule, 
-    FormsModule, 
+    BrowserModule,
+    WebRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MdButtonModule,
-    MdMenuModule,
-    MdCardModule,
-    MdToolbarModule,
-    MdInputModule,
-    MdIconModule
+    MatButtonModule,
+    MatMenuModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatInputModule,
+    MatIconModule
   ],
   providers: [
-    AuthenticationService, 
-    MyAccountService, 
-    RoleService, 
+    AuthenticationService,
+    MyAccountService,
+    RoleService,
     AuthGuardService,
     AccountResolver
   ]
 })
-export class WebModule { }
+export class WebModule {
+}

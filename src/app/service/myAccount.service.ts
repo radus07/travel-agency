@@ -1,33 +1,26 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class MyAccountService {
-  isLogged: boolean = (localStorage.getItem('account') !== null) ? true : false;
-  private url: string = "http://localhost:8083/api/myAccount/";
+  isLogged: boolean = !!localStorage.getItem('account');
+  private url = 'http://localhost:8083/api/myAccount/';
 
-  constructor(
-    private http: HttpClient,
-    private router: Router
-  ) {
+  constructor(private http: HttpClient,
+              private router: Router) {
   }
 
-  getAccount() {
-    if (this.isLogged) {
-      return this.getPublicDetails()
-        .map((result) => {
-          return { isLogged: this.isLogged, details: result };
-        })
-    } else {
-      return new Observable(observer => {
-        observer.next({ isLogged: false });
-        observer.complete();
-      })
-    }
-
+  getAccount(): Observable<any> {
+    return new Observable(observer => {
+      if (this.isLogged) {
+        observer.next({isLogged: true, details: {username: 'user', isEnabled: true}});
+      } else {
+        observer.next({isLogged: false});
+      }
+      observer.complete();
+    });
   }
 
   logoutAccount(): void {
@@ -37,7 +30,7 @@ export class MyAccountService {
   }
 
   private getPublicDetails(): Observable<any> {
-    let id = JSON.parse(atob(localStorage.getItem('account').split('.')[1])).account_id;
+    const id = JSON.parse(atob(localStorage.getItem('account').split('.')[1])).account_id;
     return this.http.get(this.url + 'publicDetails/' + id + '?token=' + JSON.parse(localStorage.getItem('account')))
       .map((result: any) => {
         return result.data;

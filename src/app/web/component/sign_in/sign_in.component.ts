@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
-import { AuthenticationService } from '../../../service/authentication.service';
+import {AuthenticationService} from '../../../service/authentication.service';
 
 @Component({
   selector: 'sign_in-section',
@@ -15,11 +14,9 @@ export class SignInComponent {
   hasErrors: boolean;
   authResultStatus: number;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthenticationService,
-    private router: Router,
-  ) {
+  constructor(private formBuilder: FormBuilder,
+              private authService: AuthenticationService,
+              private router: Router) {
     this.loginForm = this.createLoginForm(this.formBuilder);
   }
 
@@ -29,29 +26,25 @@ export class SignInComponent {
       this.authResultStatus = 0;
       return;
     }
-    
+
     this.authService.checkAuthentication(account)
-      .catch(err => {
-        this.authResultStatus = err;
-        console.log('error handling');
-        return Observable.empty();
-      })
-      .subscribe(result => {
-        this.authService.loginAccount(result.data)
-          .catch(err => {
-            console.log('loggin error');
-            return Observable.empty();
-          })
-          .subscribe(() => {
-            this.router.navigateByUrl("/web/home");
-          });
-      });
+      .subscribe(
+        result => {
+          this.authService.loginAccount(result.data)
+            .subscribe(() => {
+              this.router.navigateByUrl('/web/home');
+            });
+        },
+        error => {
+          this.authResultStatus = error;
+        }
+      );
   }
 
   private createLoginForm(formBuilder: FormBuilder): FormGroup {
     return formBuilder.group({
-      "username": ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      "password": ['', Validators.compose([Validators.required, Validators.minLength(4)])]
+      'username': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
     });
   }
 

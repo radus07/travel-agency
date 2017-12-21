@@ -1,16 +1,14 @@
-import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 
-import { MyAccountService } from '../myAccount.service';
+import {MyAccountService} from '../myAccount.service';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
 
-  constructor(
-    private myAccountService: MyAccountService,
-    private router: Router,
-  ) {
+  constructor(private myAccountService: MyAccountService,
+              private router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
@@ -26,7 +24,7 @@ export class AuthGuardService implements CanActivate {
           if (!result.details.isEnabled) {
             return this.getError('disabled');
           }
-          return this.checkRolesForAccount(route.data.roles, result.details)
+          return this.checkRolesForAccount(route.data.roles, result.details);
         }
       })
       .catch(() => {
@@ -37,7 +35,7 @@ export class AuthGuardService implements CanActivate {
   }
 
   private checkRolesForAccount(roles: Array<string>, account: any): boolean {
-    for (let role of roles) {
+    for (const role of roles) {
       if (role === account.role) {
         return true;
       }

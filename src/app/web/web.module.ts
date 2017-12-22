@@ -21,6 +21,7 @@ import {MyAccountService} from '../service/myAccount.service';
 import {RoleService} from '../service/role.service';
 import {AuthGuardService} from '../service/auth_guard/auth-guard.service';
 import {AccountResolver} from '../service/resolver/accountResolver';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {AccountResolver} from '../service/resolver/accountResolver';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    FlexLayoutModule,
     MatButtonModule,
     MatMenuModule,
     MatCardModule,

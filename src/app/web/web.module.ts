@@ -4,11 +4,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule,
-  MatCardModule,
-  MatIconModule,
-  MatInputModule,
-  MatMenuModule,
+  MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
   MatToolbarModule
 } from '@angular/material';
 
@@ -45,7 +41,8 @@ import {AccountResolver} from '../service/resolver/accountResolver';
     MatCardModule,
     MatToolbarModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatListModule
   ],
   providers: [
     AuthenticationService,

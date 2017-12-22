@@ -12,15 +12,18 @@ export class MyAccountService {
               private router: Router) {
   }
 
-  getAccount(): Observable<any> {
-    return new Observable(observer => {
-      if (this.isLogged) {
-        observer.next({isLogged: true, details: {username: 'user', isEnabled: true}});
-      } else {
+  getAccount() {
+    if (this.isLogged) {
+      return this.getPublicDetails()
+        .map((result) => {
+          return {isLogged: this.isLogged, details: result};
+        });
+    } else {
+      return new Observable(observer => {
         observer.next({isLogged: false});
-      }
-      observer.complete();
-    });
+        observer.complete();
+      });
+    }
   }
 
   logoutAccount(): void {

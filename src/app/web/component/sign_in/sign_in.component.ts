@@ -22,7 +22,6 @@ export class SignInComponent {
   }
 
   submitForm(account: any): void {
-    console.log(account);
     this.hasErrors = !this.validateLoginForm(this.loginForm);
     if (!this.validateLoginForm(this.loginForm)) {
       this.authResultStatus = 0;

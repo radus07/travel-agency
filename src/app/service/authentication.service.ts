@@ -14,19 +14,14 @@ export class AuthenticationService {
 
   checkAuthentication(account: any): Observable<any> {
     return new Observable(observer => {
-      if (account.username === 'user' && account.password === 'user') {
-        observer.next({data: {username: 'user', password: 'user', isEnabled: true}});
-      } else {
-        observer.error(404);
-      }
-      /*this.http.post(this.url, account)
+      this.http.post(this.url, account)
         .subscribe(data => {
           if (data === 404) {
             observer.error(404);
           } else {
             observer.next(data);
           }
-        });*/
+        });
     });
   }
 

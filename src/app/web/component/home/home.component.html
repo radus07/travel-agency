@@ -1,7 +1,7 @@
 <section class="home-section">
-  <md-card>
-    <md-card-title>Home</md-card-title>
-    <md-card-content>
+  <mat-card>
+    <mat-card-title>Home</mat-card-title>
+    <mat-card-content>
       <hr>
       <div *ngIf="account.isLogged; then loggedTemplate else loginTemplate"></div>
       <ng-template #loggedTemplate>
@@ -23,6 +23,6 @@
           <p>You aren't logged. You can <a [routerLink]="['/web/sign_in']"><span>sign in</span></a> for explore our app.</p>
         </div>
       </ng-template>
-    </md-card-content>
-  </md-card>
+    </mat-card-content>
+  </mat-card>
 </section>

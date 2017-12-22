@@ -1,76 +1,64 @@
-var sequelize = require('../dbconnection/dbconnection');
-var models = require('../model/tables');
-var Account = models.accounts;
-var Role = models.roles;
+const models = require('../model/tables');
 
-var accountService = {
-  getAllAccounts: () => {
-    return new Promise((resolve, reject) => {
-      Account.findAll({
-        include: [{ model: Role }],
-        attributes: { exclude: ['roleId'] }
-      })
-      .then(result => {
-        resolve(result);
-      });
-    });
-  },
-  getAccountById: (id) => {
-    return new Promise((resolve, reject) => {
-      Account.findById(id, {
-        include: [{ model: Role }],
-        attributes: { exclude: ['roleId'] }
-      })
-      .then(result => {
-        if (result) {
-          resolve(result);
-        } else {
-          reject(result);
-        }
-      });
-    });
-  },
-  getAccountByUsernameAndPassword: (username, password) => {
-    return new Promise((resolve, reject) => {
-      Account.findOne({
-        where: { username: username, password: password },
-        include: [{ model: Role }],
-        attributes: { exclude: ['roleId'] }
-      })
-      .then(result => {
-        if (result) {
-          resolve(result);
-        } else {
-          reject(result);
-        }
-      });
+const Account = models.accounts;
+const Role = models.roles;
+
+const accountService = {
+  getAllAccounts: () => new Promise((resolve) => {
+    Account.findAll({
+      include: [{ model: Role }],
+      attributes: { exclude: ['roleId'] },
     })
-  },
-  saveAccount: (account) => {
-    return new Promise((resolve, reject) => {
-      Account.build(account).save()
-      .then(result => {
-        resolve(result);
-      }).catch(error => {
-        reject(result);
-      });
-    });
-  },
-  updateAccount: (account) => {
-    return new Promise((resolve, reject) => {
-      Account.update(account, { where: { id: account.id } })
-      .then(result => {
+      .then((result) => {
         resolve(result);
       });
-    });
-  },
-  deleteAccount: (id) => {
-    return new Promise((resolve, reject) => {
-      Account.destroy({ where: { id: id } })
-      .then(result => {
+  }),
+  getAccountById: id => new Promise((resolve, reject) => {
+    Account.findById(id, {
+      include: [{ model: Role }],
+      attributes: { exclude: ['roleId'] },
+    })
+      .then((result) => {
+        if (result) {
+          resolve(result);
+        } else {
+          reject(result);
+        }
+      });
+  }),
+  getAccountByUsernameAndPassword: (username, password) => new Promise((resolve, reject) => {
+    Account.findOne({
+      where: { username, password },
+      include: [{ model: Role }],
+      attributes: { exclude: ['roleId'] },
+    })
+      .then((result) => {
+        if (result) {
+          resolve(result);
+        } else {
+          reject(result);
+        }
+      });
+  }),
+  saveAccount: account => new Promise((resolve, reject) => {
+    Account.build(account).save()
+      .then((result) => {
+        resolve(result);
+      }).catch((error) => {
+        reject(error);
+      });
+  }),
+  updateAccount: account => new Promise((resolve) => {
+    Account.update(account, { where: { id: account.id } })
+      .then((result) => {
         resolve(result);
       });
-    });
-  }
-}
+  }),
+  deleteAccount: id => new Promise((resolve) => {
+    Account.destroy({ where: { id } })
+      .then((result) => {
+        resolve(result);
+      });
+  }),
+};
 module.exports = accountService;

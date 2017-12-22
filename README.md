@@ -1,7 +1,17 @@
-# TA
+# travel - agency
 
-This is an Angular project created for managing a travel agency
+This is a web application for managing the activity of a travel agency
 
-## Development server
+## Build Setup
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# clone the project
+
+git clone [https://github.com/radus07/angular-multiple-modules-app.git](https://github.com/radus07/angular-multiple-modules-app.git)
+
+# install dependencies
+
+npm install
+
+# serve with hot reload at localhost:4200
+
+npm start

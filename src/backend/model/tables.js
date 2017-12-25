@@ -1,17 +1,16 @@
-const sequelize = require('../dbconnection/dbconnection');
+const sequelize = require('../dbconnection/dbconnection')
 
-const Role = sequelize.import('./roles');
-const Account = sequelize.import('./accounts');
+const Role = sequelize.import('./roles')
+const Account = sequelize.import('./accounts')
 
-Account.belongsTo(Role);
-Role.hasMany(Account);
+Account.belongsTo(Role)
+Role.hasMany(Account)
 
 // Role.sync({ force: true });
 // Account.sync({ force: true });
 
-module.exports.roles = Role;
-module.exports.accounts = Account;
-
+module.exports.roles = Role
+module.exports.accounts = Account
 
 /**
  * Use this code for generate the model as table in the database

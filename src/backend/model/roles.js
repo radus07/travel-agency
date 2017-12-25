@@ -6,26 +6,26 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     code: {
       type: DataTypes.STRING(15),
       allowNull: false,
-      unique: true,
+      unique: true
     },
     name: {
       type: DataTypes.STRING(30),
-      allowNull: false,
+      allowNull: false
     },
     createdAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: false
     },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: false,
-    },
+      allowNull: false
+    }
   }, {
-    tableName: 'roles',
-  });
-};
+    tableName: 'roles'
+  })
+}

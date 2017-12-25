@@ -1,9 +1,9 @@
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize')
 
 const sequelize = new Sequelize('travel_agency', 'root', 'root', {
   host: 'localhost',
-  dialect: 'mysql',
-});
+  dialect: 'mysql'
+})
 
 sequelize.authenticate()
   .then(() => {
@@ -12,7 +12,7 @@ sequelize.authenticate()
      */
   })
   .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
+    console.error('Unable to connect to the database:', err)
+  })
 
-module.exports = sequelize;
+module.exports = sequelize

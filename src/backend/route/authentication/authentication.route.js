@@ -1,19 +1,19 @@
-const express = require('express');
+const express = require('express')
 
-const router = express.Router();
-const jwt = require('jsonwebtoken');
-const accountService = require('../../service/account.service');
+const router = express.Router()
+const jwt = require('jsonwebtoken')
+const accountService = require('../../service/account.service')
 
 router.post('/', (req, res) => {
   accountService.getAccountByUsernameAndPassword(req.body.username, req.body.password)
     .then((result) => {
-      const token = jwt.sign({ account_id: result.dataValues.id }, 'secretWord');
-      res.send({ status: 200, data: token });
+      const token = jwt.sign({ account_id: result.dataValues.id }, 'secretWord')
+      res.send({ status: 200, data: token })
     })
     .catch(() => {
-      res.json(404);
-    });
-});
+      res.json(404)
+    })
+})
 
 // router.get('/userDetails/:id', (req, res) => {
 //  accountService.getAccountById(req.params.id, (result) => {
@@ -29,4 +29,4 @@ router.post('/', (req, res) => {
 //   }
 // }
 
-module.exports = router;
+module.exports = router

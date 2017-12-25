@@ -6,52 +6,52 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     email: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      unique: true,
+      unique: true
     },
     username: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      unique: true,
+      unique: true
     },
     password: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: false
     },
     firstName: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: false
     },
     lastName: {
       type: DataTypes.STRING(50),
-      allowNull: false,
+      allowNull: false
     },
     isEnabled: {
       type: DataTypes.INTEGER(1),
       allowNull: false,
-      defaultValue: '0',
+      defaultValue: '0'
     },
     createdAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: false
     },
     updatedAt: {
       type: DataTypes.DATE,
-      allowNull: false,
+      allowNull: false
     },
     roleId: {
       type: DataTypes.INTEGER(11),
       allowNull: true,
       references: {
         model: 'roles',
-        key: 'id',
-      },
-    },
+        key: 'id'
+      }
+    }
   }, {
-    tableName: 'accounts',
-  });
-};
+    tableName: 'accounts'
+  })
+}

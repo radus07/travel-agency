@@ -1,29 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-
-import { WebModule } from './web/web.module';
-import { AgencyModule } from './agency/agency.module';
-import { AdminModule } from './admin/admin.module';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {HttpClientModule} from '@angular/common/http';
+import {NotFoundComponent} from './common/components/errors/404/not-found.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    AgencyModule,
-    AdminModule,
-    WebModule,
-    RouterModule
+    AppRoutingModule,
   ],
   declarations: [
     AppComponent,
+    NotFoundComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

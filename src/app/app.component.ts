@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { Title } from '@angular/platform-browser';
-import { Http } from '@angular/http';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {Title} from '@angular/platform-browser';
 
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
 import * as data from './assets/message/message.json';
+
 export const MESSAGES = (<any>data);
 
 @Component({
@@ -18,13 +18,9 @@ export const MESSAGES = (<any>data);
 })
 export class AppComponent implements OnInit {
 
-  messages = MESSAGES;
-
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private titleService: Title,
-  ) {
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private titleService: Title,) {
 
   }
 
@@ -33,7 +29,7 @@ export class AppComponent implements OnInit {
       .filter((event) => event instanceof NavigationEnd)
       .map(() => this.activatedRoute)
       .map((route) => {
-        while (route.firstChild) route = route.firstChild;
+        while (route.firstChild) { route = route.firstChild; }
         return route;
       })
       .filter((route) => route.outlet === 'primary')

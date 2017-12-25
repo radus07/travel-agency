@@ -8,7 +8,9 @@
     "notFound": "404 Page Not Found!"
   },
   "Agency": {
-    "agencyHome": "Agency Page"
+    "titles": {
+      "homePage": "Agency | Home"
+    }
   },
   "Admin": {
     "titles": {

@@ -1,32 +1,36 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
-import { WebComponent } from '../component/web.component';
-import { HomeComponent } from '../component/home/home.component';
-import { SignInComponent } from '../component/sign_in/sign_in.component';
-import { ContactComponent } from '../component/contact/contact.component';
-import { NotFoundComponent } from '../../common/component/error/404/not-found.component';
+import {MESSAGES} from '../../app.component';
 
-import { MESSAGES } from '../../app.component';
-import { AuthGuardService } from '../../service/auth_guard/auth-guard.service';
-import { AccountResolver } from '../../service/resolver/accountResolver';
+import {WebComponent} from '../components/web.component';
+import {HomeComponent} from '../components/home/home.component';
+import {SignInComponent} from '../components/sign_in/sign_in.component';
+import {ContactComponent} from '../components/contact/contact.component';
+
+import {AccountResolver} from '../../service/resolver/accountResolver';
+import {AuthGuardService} from '../../service/auth_guard/auth-guard.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'web', pathMatch: 'full' },
   {
-    path: 'web', component: WebComponent,
+    path: '', component: WebComponent,
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent, data: { title: MESSAGES.Admin.titles.homePage }, resolve: { account: AccountResolver } },
-      { path: 'sign_in', component: SignInComponent, data: { title: 'Sign in | Agency', logged: false }, canActivate: [AuthGuardService] },
-      { path: 'contact', component: ContactComponent, data: { title: 'Contact Us' } }
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
+      {path: 'home', component: HomeComponent, data: {title: MESSAGES.Web.titles.homePage}, resolve: {account: AccountResolver}},
+      {
+        path: 'sign_in',
+        component: SignInComponent,
+        data: {title: MESSAGES.Web.titles.signInPage, logged: false},
+        canActivate: [AuthGuardService]
+      },
+      {path: 'contact', component: ContactComponent, data: {title: 'Contact Us'}}
     ]
-  },
-  { path: '**', component: NotFoundComponent, data: { title: MESSAGES.Web.notFound } }
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class WebRoutingModule { }
+export class WebRoutingModule {
+}

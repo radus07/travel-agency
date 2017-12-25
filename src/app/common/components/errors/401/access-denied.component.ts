@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'access-denied',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 
 export class AccessDeniedComponent implements OnInit {
   title = "No permissions!";
-  
+
   constructor() { }
 
   ngOnInit() { }

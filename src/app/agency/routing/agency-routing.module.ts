@@ -1,17 +1,26 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
-import { AgencyComponent } from '../agency.component';
+import {MESSAGES} from '../../app.component';
 
-import { MESSAGES } from '../../app.component';
+import {AgencyComponent} from '../components/agency.component';
+import {HomeComponent} from '../components/home/home.component';
+
+import {AuthGuardService} from '../../service/auth_guard/auth-guard.service';
 
 const routes: Routes = [
-  { path: 'agency', redirectTo: 'agency/home', pathMatch: 'full' },
-  { path: 'agency/home', component: AgencyComponent, data: {title: MESSAGES.Agency.agencyHome} },
+  {
+    path: '', component: AgencyComponent, canActivate: [AuthGuardService], data: {logged: true, roles: ['']},
+    children: [
+      {path: '', redirectTo: 'home', pathMatch: 'full'},
+      {path: 'home', component: HomeComponent, data: {title: MESSAGES.Agency.titles.homePage}}
+    ]
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AgencyRoutingModule { }
+export class AgencyRoutingModule {
+}

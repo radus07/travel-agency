@@ -1,12 +1,27 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { AgencyComponent } from './agency.component';
+import {HomeComponent} from './components/home/home.component';
+import {AgencyComponent} from './components/agency.component';
 
-import { AgencyRoutingModule } from './routing/agency-routing.module';
+import {AuthGuardService} from '../service/auth_guard/auth-guard.service';
+import {MyAccountService} from '../service/myAccount.service';
+
+import {AgencyRoutingModule} from './routing/agency-routing.module';
 
 @NgModule({
-  declarations: [AgencyComponent],
-  imports: [BrowserModule, AgencyRoutingModule]
+  declarations: [
+    AgencyComponent,
+    HomeComponent
+  ],
+  imports: [
+    CommonModule,
+    AgencyRoutingModule
+  ],
+  providers: [
+    MyAccountService,
+    AuthGuardService
+  ]
 })
-export class AgencyModule { }
+export class AgencyModule {
+}

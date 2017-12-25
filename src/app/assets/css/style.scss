@@ -4,12 +4,6 @@ html, body {
   height: 100%;
   margin: 0;
 }
-.page-content {
-  background-color: rgba(182, 183, 197, 0.8);
-  height: 100%;
-
-  .content {
-    padding: 5px;
-    box-sizing: border-box;
-  }
+.spacer-divider {
+  flex: 1 1 auto;
 }

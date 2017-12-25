@@ -3,13 +3,9 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {MESSAGES} from '../../app.component';
 
-import {WebComponent} from '../components/web.component';
-import {HomeComponent} from '../components/home/home.component';
-import {SignInComponent} from '../components/sign_in/sign_in.component';
-import {ContactComponent} from '../components/contact/contact.component';
+import {ContactComponent, HomeComponent, SignInComponent, WebComponent} from '../components';
 
-import {AccountResolver} from '../../service/resolver/accountResolver';
-import {AuthGuardService} from '../../service/auth_guard/auth-guard.service';
+import {AccountResolver, AuthGuardService} from '../../service';
 
 const routes: Routes = [
   {

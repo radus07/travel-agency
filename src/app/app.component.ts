@@ -13,14 +13,22 @@ export const MESSAGES = (<any>data);
 @Component({
   selector: 'app-root',
   template: `
-    <router-outlet></router-outlet>
-  `
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  `,
+  styles: [`
+    main.content {
+      width: 100%;
+      height: 100%;
+    }
+  `]
 })
 export class AppComponent implements OnInit {
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
-              private titleService: Title,) {
+              private titleService: Title) {
 
   }
 

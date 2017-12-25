@@ -2,25 +2,19 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import {AdminComponent} from './components/admin.component';
-import {FooterComponent, HeaderComponent} from './components/fragments/fragments.component';
-import {HomeComponent} from './components/home/home.component';
-import {UserComponent} from './components/user/user.component';
-import {AccessDeniedComponent} from '../common/components/errors/401/access-denied.component';
+import {AdminComponent, FooterComponent, HomeComponent, ToolbarComponent, UserComponent} from './components';
 
-import {MyAccountService} from '../service/myAccount.service';
-import {AuthGuardService} from '../service/auth_guard/auth-guard.service';
+import {AuthGuardService, MyAccountService} from '../service';
 
 import {AdminRoutingModule} from './routing/admin-routing.module';
 
 @NgModule({
   declarations: [
     AdminComponent,
-    HeaderComponent,
     FooterComponent,
     HomeComponent,
     UserComponent,
-    AccessDeniedComponent
+    ToolbarComponent
   ],
   imports: [
     CommonModule,

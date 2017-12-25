@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-  selector: 'admin-section',
+  selector: 'app-admin-section',
   template: `
     <div class="container">
       <router-outlet></router-outlet>

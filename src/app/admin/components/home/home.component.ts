@@ -1,15 +1,12 @@
 import {Component} from '@angular/core';
-import {Router} from '@angular/router';
 
 @Component({
-  selector: 'home-section',
+  selector: 'app-home-section',
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
   title = 'ADMIN | Home';
 
-  constructor(
-    private router: Router,
-  ) {
+  constructor() {
   }
 }

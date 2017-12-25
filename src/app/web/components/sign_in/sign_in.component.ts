@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../../../service/authentication.service';
 
 @Component({
-  selector: 'sign_in-section',
+  selector: 'app-sign-in-section',
   templateUrl: './sign_in.component.html',
   styleUrls: ['./sign_in.component.scss']
 })

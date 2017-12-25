@@ -3,10 +3,9 @@ import {RouterModule, Routes} from '@angular/router';
 
 import {MESSAGES} from '../../app.component';
 
-import {AgencyComponent} from '../components/agency.component';
-import {HomeComponent} from '../components/home/home.component';
+import {AgencyComponent, HomeComponent} from '../components';
 
-import {AuthGuardService} from '../../service/auth_guard/auth-guard.service';
+import {AuthGuardService} from '../../service';
 
 const routes: Routes = [
   {

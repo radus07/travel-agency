@@ -1,0 +1,12 @@
+mat-toolbar {
+  height: 48px;
+  min-height: 48px;
+
+  mat-toolbar-row {
+    height: 48px;
+
+    .mat-button {
+      line-height: 48px;
+    }
+  }
+}

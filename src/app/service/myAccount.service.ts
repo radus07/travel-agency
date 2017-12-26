@@ -5,7 +5,7 @@ import {Observable} from 'rxjs/Rx';
 
 @Injectable()
 export class MyAccountService {
-  isLogged: boolean = !!localStorage.getItem('account');
+
   private url = 'http://localhost:8083/api/myAccount/';
 
   constructor(private http: HttpClient,
@@ -13,10 +13,10 @@ export class MyAccountService {
   }
 
   getAccount() {
-    if (this.isLogged) {
+    if (MyAccountService.isLogged) {
       return this.getPublicDetails()
         .map((result) => {
-          return {isLogged: this.isLogged, details: result};
+          return {isLogged: true, details: result};
         });
     } else {
       return new Observable(observer => {
@@ -28,7 +28,6 @@ export class MyAccountService {
 
   logoutAccount(): void {
     localStorage.removeItem('account');
-    this.isLogged = false;
     this.router.navigateByUrl('/web/sign_in');
   }
 
@@ -44,6 +43,10 @@ export class MyAccountService {
     /**
      * Like getPublicDetails()
      */
+  }
+
+  static get isLogged(): boolean {
+    return !!localStorage.getItem('account');
   }
 
 }

@@ -2,14 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Rx';
 
-import {MyAccountService} from './myAccount.service';
-
 @Injectable()
 export class AuthenticationService {
   private url = 'http://localhost:8083/api/authenticate/';
 
-  constructor(private http: HttpClient,
-              private accountService: MyAccountService) {
+  constructor(private http: HttpClient) {
   }
 
   checkAuthentication(account: any): Observable<any> {
@@ -28,7 +25,6 @@ export class AuthenticationService {
   loginAccount(account: any): Observable<any> {
     return new Observable(observer => {
       localStorage.setItem('account', JSON.stringify(account));
-      this.accountService.isLogged = true;
       observer.next();
     });
   }

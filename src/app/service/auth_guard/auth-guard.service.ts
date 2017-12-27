@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 
 import {MyAccountService} from '../myAccount.service';
@@ -11,56 +11,34 @@ export class AuthGuardService implements CanActivate {
               private router: Router) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
+  static accountHasRole(account, roles): boolean {
+    return roles.includes(account.details.role);
+  }
+
+  canActivate(route: ActivatedRouteSnapshot): boolean | Observable<boolean> | Promise<boolean> {
     return this.myAccountService.getAccount()
-      .map((result: any) => {
-        if (!route.data.logged && !result.isLogged) {
-          return true;
-        } else if (!route.data.logged && result.isLogged) {
-          this.router.navigateByUrl('/web/home');
-        } else if (route.data.logged && !result.isLogged) {
-          return this.getError('unauthenticated');
-        } else if (route.data.logged && result.isLogged) {
-          if (!result.details.isEnabled) {
-            return this.getError('disabled');
+      .map((account: any) => {
+        let error = null;
+        if (route.data.logged) {
+          if (!account.isLogged || (!account.details.isEnabled || (account.isLogged &&
+              (account.details.isEnabled && !AuthGuardService.accountHasRole(account, route.data.roles))))) {
+            error = 401;
+          } else {
+            return true;
           }
-          return this.checkRolesForAccount(route.data.roles, result.details);
+        } else if (!route.data.logged) {
+          return (account.isLogged) ? this.router.navigateByUrl('/web/home') : true;
         }
-      })
-      .catch(() => {
-        this.router.navigate(['/web/home']);
-        return Observable.of(false);
+        if (error) {
+          return this.handleError(error);
+        }
       });
-
   }
 
-  private checkRolesForAccount(roles: Array<string>, account: any): boolean {
-    for (const role of roles) {
-      if (role === account.role) {
-        return true;
-      }
-    }
-    return this.getError('unauthorized');
-  }
-
-  private getError(error: string): boolean {
-    switch (error) {
-      case 'unauthenticated': {
-        return this.errorHandling('You must be logged in for load this page.');
-      }
-      case 'unauthorized': {
-        return this.errorHandling('You haven\'t permissions for load this page.');
-      }
-      case 'disabled': {
-        return this.errorHandling('Your account must be enabled for load this page.');
-      }
-    }
-  }
-
-  private errorHandling(message: string): boolean {
-    console.log(message);
-    this.router.navigateByUrl('/web/home');
-    return false;
+  private handleError(error: string): boolean | Observable<boolean> | Promise<boolean> {
+    // todo: display a modal with message about this error
+    console.log(`Error: ${error}`);
+    return this.router.navigateByUrl('/web/home');
   }
 
 }

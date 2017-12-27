@@ -12,7 +12,7 @@ export class MyAccountService {
               private router: Router) {
   }
 
-  getAccount() {
+  getAccount(): any {
     if (MyAccountService.isLogged) {
       return this.getPublicDetails()
         .map((result) => {
@@ -33,7 +33,7 @@ export class MyAccountService {
 
   private getPublicDetails(): Observable<any> {
     const id = JSON.parse(atob(localStorage.getItem('account').split('.')[1])).account_id;
-    return this.http.get(this.url + 'publicDetails/' + id + '?token=' + JSON.parse(localStorage.getItem('account')))
+    return this.http.get(`${this.url}publicDetails/${id}?token=${JSON.parse(localStorage.getItem('account'))}`)
       .map((result: any) => {
         return result.data;
       });

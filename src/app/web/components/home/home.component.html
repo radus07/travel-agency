@@ -1,36 +1,46 @@
-<!--
-<section class="home-section">
-  <mat-card>
-    <mat-card-title>Home</mat-card-title>
-    <mat-card-content>
-      <hr>
-      <div *ngIf="account.isLogged; then loggedTemplate else loginTemplate"></div>
-      <ng-template #loggedTemplate>
-        <div style="text-align: right;"><a class="link" (click)="logoutAccount()">Sign out</a></div>
-        <hr>
-        <div *ngIf="account.details.isEnabled; then enabledTemplate else disabledTemplate"></div>
-        <ng-template #enabledTemplate>
-          <div><a routerLink="/agency"><span>Travel Agency</span></a></div>
-          <div><a routerLink="/admin"><span>Admin</span></a></div>
-        </ng-template>
-        <ng-template #disabledTemplate>
-          <p>Your account is disabled. For more details <a [routerLink]="['/web/contact']">contact</a> us.</p>
-        </ng-template>
-      </ng-template>
-      <ng-template #loginTemplate>
-        <div> Information about agency... </div>
-        <hr>
-        <div>
-          <p>You aren't logged. You can <a [routerLink]="['/web/sign_in']"><span>sign in</span></a> for explore our app.</p>
+<section class="app-home-section">
+  <div class="web-home-header" fxLayout fxLayoutAlign="center">
+    <div fxFlex="100" fxFlexAlign="start" fxFlexFill>
+      <div class="header-overlay-container" fxLayout fxLayoutAlign="center center">
+        <div fxFlex style="text-align: center">
+          <h2>Travel Agency</h2>
+          <h3>Get your trip SIMPLER and FASTER</h3>
+          <button mat-raised-button color="accent">Get now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="account.isLogged; then loggedInTemplate else loggedOutTemplate"></div>
+  <ng-template #loggedInTemplate>
+    <section class="web-home-container logged-in-section">
+      <div fxLayout="column">
+        <div fxFlex="100">
+          <button mat-raised-button (click)="logoutAccount()">Sign out</button>
+        </div>
+      </div>
+      <div *ngIf="account.details.isEnabled; then enabledAccountTemplate else disabledAccountTemplate"></div>
+      <ng-template #enabledAccountTemplate>
+        <div fxLayout="row" fxLayoutAlign="center">
+          <div fxFlex="300px">
+            <a mat-raised-button routerLink="/agency">Travel Agency</a>
+            <div fxFlex></div>
+            <a mat-raised-button routerLink="/admin">Admin</a>
+          </div>
         </div>
       </ng-template>
-    </mat-card-content>
-  </mat-card>
-</section>-->
-<section fxLayout="column" fxLayoutAlign="start" fxLayoutGap="20px">
-  <a routerLink="/web/sign_in">sign in</a>
-  <a routerLink="/admin">admin</a>
-  <a routerLink="/agency">agency</a>
-  <div>first div</div>
-  <div>second div</div>
+      <ng-template #disabledAccountTemplate>
+        <div fxLayout="column" fxLayoutAlign="center">
+          <div fxFlex>
+            <p>Your account is disabled. For more details <a routerLink="/web/contact">contact</a> us.</p>
+          </div>
+        </div>
+      </ng-template>
+    </section>
+  </ng-template>
+  <ng-template #loggedOutTemplate>
+    <section class="web-home-container logged-out-section">
+      <a mat-raised-button routerLink="/web/sign_in">Sign in</a>
+    </section>
+  </ng-template>
 </section>

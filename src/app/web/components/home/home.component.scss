@@ -1,0 +1,24 @@
+.app-home-section {
+  height: 100%;
+
+  .web-home-header {
+    height: 65%;
+
+    > div {
+      background: url("http://ezinearticlesbase.com/wp-content/uploads/2017/07/travel-022.jpg") center;
+      background-size: cover;
+    }
+
+    .header-overlay-container {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.56);
+      color: white;
+    }
+  }
+
+  .web-home-container {
+    background-color: antiquewhite;
+    height: 35%;
+  }
+}

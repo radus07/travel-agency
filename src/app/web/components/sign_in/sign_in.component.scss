@@ -1,23 +1,29 @@
-.sign_in {
-  .signin-container {
+.app-sign-in-section {
+  height: 100%;
+  width: 100%;
+  min-height: 450px;
+  background: url("http://ezinearticlesbase.com/wp-content/uploads/2017/07/travel-022.jpg") center;
+  background-size: cover;
+
+  .app-sign-in-section-overlay {
     width: 100%;
-    display: table;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
 
-    .form-section {
-      width: 30%;
-      display: table-cell;
+    .web-sign-in-container {
+      max-width: 1185px !important;
+      margin: 0 auto;
+      height: 100%;
 
-      .signin-form {
-        width: 60%;
-
+      .form-container {
         .mat-form-field {
-          width: 220px;
+          width: 100%;
         }
       }
     }
-    .detail-section {
-      width: 70%;
-      display: table-cell;
-    }
+  }
+
+  .mat-list .mat-list-item {
+    color: white !important;
   }
 }

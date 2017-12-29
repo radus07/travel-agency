@@ -7,3 +7,12 @@ html, body {
 .spacer-divider {
   flex: 1 1 auto;
 }
+.cdk-global-overlay-wrapper {
+  background-color: rgba(104, 104, 104, 0.82);
+  align-items: center!important;
+
+  .app-unauthorized-snack-bar-white-background {
+    background-color: white;
+    color: black;
+  }
+}

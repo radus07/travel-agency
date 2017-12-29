@@ -13,12 +13,12 @@ export const MESSAGES = (<any>data);
 @Component({
   selector: 'app-root',
   template: `
-    <main class="content">
+    <main id="content">
       <router-outlet></router-outlet>
     </main>
   `,
   styles: [`
-    main.content {
+    main#content {
       width: 100%;
       height: 100%;
     }

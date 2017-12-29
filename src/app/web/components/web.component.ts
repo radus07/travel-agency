@@ -12,7 +12,6 @@ import {Component} from '@angular/core';
       max-width: 1185px;
       min-width: 300px;
       margin: 0 auto;
-      min-height: 500px;
       height: 100%;
     }
   `]

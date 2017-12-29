@@ -4,8 +4,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {AdminComponent, FooterComponent, HomeComponent, ToolbarComponent, UserComponent} from './components';
 
-import {AuthGuardService, MyAccountService} from '../service';
-
 import {AdminRoutingModule} from './routing/admin-routing.module';
 
 @NgModule({
@@ -22,10 +20,7 @@ import {AdminRoutingModule} from './routing/admin-routing.module';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [
-    MyAccountService,
-    AuthGuardService
-  ]
+  providers: []
 })
 export class AdminModule {
 }

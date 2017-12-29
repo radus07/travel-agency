@@ -3,8 +3,6 @@ import {CommonModule} from '@angular/common';
 
 import {AgencyComponent, HomeComponent} from './components';
 
-import {AuthGuardService, MyAccountService} from '../service';
-
 import {AgencyRoutingModule} from './routing/agency-routing.module';
 
 @NgModule({
@@ -16,10 +14,7 @@ import {AgencyRoutingModule} from './routing/agency-routing.module';
     CommonModule,
     AgencyRoutingModule
   ],
-  providers: [
-    MyAccountService,
-    AuthGuardService
-  ]
+  providers: []
 })
 export class AgencyModule {
 }

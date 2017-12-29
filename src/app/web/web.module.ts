@@ -3,18 +3,13 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {
-  MatButtonModule,
-  MatCardModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatMenuModule,
+  MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
   MatToolbarModule
 } from '@angular/material';
 
-import {ContactComponent, HomeComponent, SignInComponent, ToolbarComponent, WebComponent} from './components';
+import {ContactComponent, HomeComponent, SignInComponent, WebComponent} from './components';
 
-import {AccountResolver, AuthenticationService, AuthGuardService, MyAccountService, RoleService} from '../service';
+import {AccountResolver, AuthenticationService, RoleService} from '../service';
 
 import {WebRoutingModule} from './routing/web-routing.module';
 
@@ -23,8 +18,7 @@ import {WebRoutingModule} from './routing/web-routing.module';
     WebComponent,
     HomeComponent,
     SignInComponent,
-    ContactComponent,
-    ToolbarComponent
+    ContactComponent
   ],
   imports: [
     CommonModule,
@@ -42,9 +36,7 @@ import {WebRoutingModule} from './routing/web-routing.module';
   ],
   providers: [
     AuthenticationService,
-    MyAccountService,
     RoleService,
-    AuthGuardService,
     AccountResolver
   ]
 })

@@ -22,29 +22,29 @@ export class AuthGuardService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean | Observable<boolean> | Promise<boolean> {
     return this.myAccountService.getAccount()
       .map((account: any) => {
-          let error = false;
-          if (route.data.logged) {
-            if (!account.isLogged) {
-              error = true;
-            } else if (account.isLogged && account.details) {
-              if (!account.details.isEnabled ||
-                (account.details.isEnabled && !AuthGuardService.accountHasRole(account, route.data.roles))) {
-                error = true;
-              } else {
-                return true;
-              }
+        console.log(account);
+        let errorCode = null;
+        if (route.data.logged) {
+          if (!account.isLogged) {
+            errorCode = 401;
+          } else if (account.isLogged && account.details) {
+            if (!account.details.isEnabled ||
+              (account.details.isEnabled && !AuthGuardService.accountHasRole(account, route.data.roles))) {
+              errorCode = 401.3;
+            } else {
+              return true;
             }
-          } else if (!route.data.logged) {
-            return (account.isLogged) ? this.router.navigateByUrl('/web/home') : true;
           }
-          if (error) {
-            return this.throwError();
-          }
+        } else if (!route.data.logged) {
+          return (account.isLogged) ? this.router.navigateByUrl('/web/home') : true;
         }
-      );
+        if (errorCode) {
+          return this.throwError(errorCode);
+        }
+      });
   }
 
-  private throwError(): boolean | Observable<boolean> | Promise<boolean> {
+  private throwError(errorCode): boolean | Observable<boolean> | Promise<boolean> {
     this.router.events
       .find((event) => event instanceof GuardsCheckEnd && !event.shouldActivate)
       .subscribe((guardCheck: GuardsCheckEnd) => {
@@ -52,7 +52,7 @@ export class AuthGuardService implements CanActivate {
           verticalPosition: 'top',
           panelClass: ['app-unauthorized-snack-bar-white-background'],
           data: {
-            errorCode: 401.3,
+            errorCode: errorCode,
             url: guardCheck.url
           }
         });

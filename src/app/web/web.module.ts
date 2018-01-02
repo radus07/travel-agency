@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {
-  MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
+  MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatOptionModule, MatSelectModule,
   MatToolbarModule
 } from '@angular/material';
 
@@ -32,7 +32,9 @@ import {WebRoutingModule} from './routing/web-routing.module';
     MatToolbarModule,
     MatInputModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [
     AuthenticationService,

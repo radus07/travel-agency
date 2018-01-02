@@ -31,14 +31,14 @@ export class UnauthorizedSnackBarComponent {
 
   constructor(@Inject(MAT_SNACK_BAR_DATA) private data: any,
               private myAccountService: MyAccountService) {
-    if (this.data.errorCode === 401) {
-      this.myAccountService.logoutAccount();
-    }
     this.contentSection = document.getElementById('content');
     this.contentSection.style.pointerEvents = 'none';
   }
 
   dismiss() {
+    if (this.data.errorCode === 401) {
+      this.myAccountService.logoutAccount();
+    }
     this.snackBarRef.dismiss();
     this.contentSection.style.pointerEvents = '';
   }

@@ -1,1 +1,1 @@
-export * from './snackbars/unauthorized-snack-bar/unauthorized-snack-bar.component';
+export * from './snackbars/unauthorized/unauthorized-snack-bar.component';

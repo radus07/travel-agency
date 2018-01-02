@@ -22,21 +22,26 @@ export class AuthGuardService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean | Observable<boolean> | Promise<boolean> {
     return this.myAccountService.getAccount()
       .map((account: any) => {
-        let error = false;
-        if (route.data.logged) {
-          if (!account.isLogged || (!account.details.isEnabled || (account.isLogged &&
-              (account.details.isEnabled && !AuthGuardService.accountHasRole(account, route.data.roles))))) {
-            error = true;
-          } else {
-            return true;
+          let error = false;
+          if (route.data.logged) {
+            if (!account.isLogged) {
+              error = true;
+            } else if (account.isLogged && account.details) {
+              if (!account.details.isEnabled ||
+                (account.details.isEnabled && !AuthGuardService.accountHasRole(account, route.data.roles))) {
+                error = true;
+              } else {
+                return true;
+              }
+            }
+          } else if (!route.data.logged) {
+            return (account.isLogged) ? this.router.navigateByUrl('/web/home') : true;
           }
-        } else if (!route.data.logged) {
-          return (account.isLogged) ? this.router.navigateByUrl('/web/home') : true;
+          if (error) {
+            return this.throwError();
+          }
         }
-        if (error) {
-          return this.throwError();
-        }
-      });
+      );
   }
 
   private throwError(): boolean | Observable<boolean> | Promise<boolean> {
@@ -47,6 +52,7 @@ export class AuthGuardService implements CanActivate {
           verticalPosition: 'top',
           panelClass: ['app-unauthorized-snack-bar-white-background'],
           data: {
+            errorCode: 401.3,
             url: guardCheck.url
           }
         });

@@ -33,7 +33,7 @@ export class MyAccountService {
 
   private getPublicDetails(): Observable<any> {
     const id = JSON.parse(atob(localStorage.getItem('account').split('.')[1])).account_id;
-    return this.http.get(`${this.url}publicDetails/${id}?token=${JSON.parse(localStorage.getItem('account'))}`)
+    return this.http.get(`${this.url}publicDetails/${id}`)
       .map((result: any) => {
         return result.data;
       });
@@ -47,6 +47,10 @@ export class MyAccountService {
 
   static get isLogged(): boolean {
     return !!localStorage.getItem('account');
+  }
+
+  static get getToken(): string {
+    return JSON.parse(localStorage.getItem('account'));
   }
 
 }

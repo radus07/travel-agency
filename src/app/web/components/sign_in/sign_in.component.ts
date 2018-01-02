@@ -18,12 +18,23 @@ export class SignInComponent {
   constructor(private formBuilder: FormBuilder,
               private authService: AuthenticationService,
               private router: Router) {
-    this.loginForm = this.createLoginForm(this.formBuilder);
+    this.loginForm = SignInComponent.createLoginForm(this.formBuilder);
+  }
+
+  static createLoginForm(formBuilder: FormBuilder): FormGroup {
+    return formBuilder.group({
+      'username': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
+    });
+  }
+
+  static validateLoginForm(loginForm: FormGroup): boolean {
+    return loginForm.valid;
   }
 
   submitForm(account: any): void {
-    this.hasErrors = !this.validateLoginForm(this.loginForm);
-    if (!this.validateLoginForm(this.loginForm)) {
+    this.hasErrors = !SignInComponent.validateLoginForm(this.loginForm);
+    if (this.hasErrors) {
       this.authResultStatus = 0;
       return;
     }
@@ -31,7 +42,7 @@ export class SignInComponent {
     this.authService.checkAuthentication(account)
       .subscribe(
         result => {
-          this.authService.loginAccount(result.data)
+          this.authService.loginAccount(result)
             .subscribe(() => {
               this.router.navigateByUrl('/web/home');
             });
@@ -40,17 +51,6 @@ export class SignInComponent {
           this.authResultStatus = error;
         }
       );
-  }
-
-  private createLoginForm(formBuilder: FormBuilder): FormGroup {
-    return formBuilder.group({
-      'username': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
-    });
-  }
-
-  private validateLoginForm(loginForm: FormGroup): boolean {
-    return loginForm.valid;
   }
 
 }

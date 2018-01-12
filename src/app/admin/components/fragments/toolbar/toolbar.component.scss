@@ -1,0 +1,12 @@
+.mat-toolbar {
+  height: 48px;
+
+  > div {
+    width: 100%;
+    margin-left: 16px;
+  }
+
+  .mat-button-toggle-standalone {
+    box-shadow: 0 0 0 0;
+  }
+}

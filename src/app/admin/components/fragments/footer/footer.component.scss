@@ -1,0 +1,14 @@
+.mat-toolbar-row, .mat-toolbar-single-row {
+  height: 32px;
+
+  > div {
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    p {
+      margin: 0;
+      font: initial;
+    }
+  }
+}

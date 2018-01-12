@@ -1,3 +1,6 @@
-<a routerLink="/web">HOME</a>
-<a routerLink="/admin/home">ADMIN</a>
-<a routerLink="/admin/users">USERS</a>
+<mat-toolbar>
+  <mat-button-toggle (click)="toggleSidenav()">
+    <mat-icon>{{icon}}</mat-icon>
+  </mat-button-toggle>
+  <div>Toolbar</div>
+</mat-toolbar>
